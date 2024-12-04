@@ -57,10 +57,16 @@ export const getAllRides = asyncHandler(async (req, res) => {
     query["endLocation.address"] = { $regex: endLocation, $options: "i" };
   }
 
-  const rides = await Ride.find(query).populate("driverId", "fullName email").lean();
-  return res
-    .status(200)
-    .json(new ApiResponse(200, rides, "Rides fetched successfully."));
+  const { page = 1, limit = 10 } = req.query;
+const rides = await Ride.find(query)
+    .skip((page - 1) * limit)
+    .limit(parseInt(limit))
+    .populate("driverId", "fullName email");
+
+const totalRides = await Ride.countDocuments(query);
+return res.status(200).json(
+    new ApiResponse(200, { rides, totalRides }, "Rides fetched successfully.")
+);
 });
 
 // Get ride by ID
