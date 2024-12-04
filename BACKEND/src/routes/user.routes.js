@@ -13,7 +13,13 @@ import {
 import {upload} from "../middlewares/multer.middleware.js"
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
+import rateLimit from 'express-rate-limit';
 
+const loginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 10, // Limit each IP to 10 requests per window
+    message: "Too many login attempts, please try again later",
+});
 
 const router = Router()
 
@@ -28,7 +34,7 @@ router.route("/register").post(
     registerUser
     )
 
-router.route("/login").post(loginUser)
+router.route("/login").post(loginLimiter,loginUser)
 
 //secured routes
 router.route("/logout").post(verifyJWT,  logoutUser)//Logout
