@@ -1,8 +1,9 @@
 import { Server as socketIo } from "socket.io";  
 import userModel from "../models/user.model.js";
 
+let io
 export const setupSocketHandlers = (server) => {  
-  let io = new socketIo(server, {
+  io = new socketIo(server, {
     cors: {
       origin: "*",
       methods: ["GET", "POST"],
