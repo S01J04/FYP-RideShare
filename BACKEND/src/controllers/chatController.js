@@ -55,3 +55,4 @@ export const getChatHistory = asyncHandler(async (req, res) => {
   
   res.json({ success: true, chatRoom });
 });
+
