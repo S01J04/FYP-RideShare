@@ -4,6 +4,7 @@ import { faArrowDown, faCar,faPlusCircle,faUserCircle } from '@fortawesome/free-
 import { DropdownMenu } from './ui/dropdown-menu'
 import { DropdownMenuDemo } from './Drop-down-menu'
 import { ModeToggle } from './ui/mode-toggle'
+import { Link } from 'react-router'
 
 const Header = () => {
   return (
@@ -13,16 +14,17 @@ const Header = () => {
         </div>
         <div className="logo">
             <div className="img">
-                <img className='border border-black h-[60px] w-[100px]'  src="./src/assets/Capture-removebg-preview.png"   alt="" />
+                <Link to={"/"}><img className='border border-black h-[60px] w-[100px]'  src="./src/assets/Capture-removebg-preview.png"   alt="" />
+                </Link>
             </div>
         </div>
-        <div className="nav border md:mr-10 border-black">
+        <div className="nav border md:mr-2 border-black">
             <nav className='h-full'>
-                <ul className='flex  border border-black h-full gap-4 md:gap-16 items-center justify-center'>
-                    <li className='border border-black'><a href="#"> <FontAwesomeIcon icon={faCar} size='lg'/> <span className='hidden md:inline'>Search Ride</span></a></li>
-                    <li className='border border-black'><a href="#"> <FontAwesomeIcon icon={faPlusCircle} size='lg' /><span className='hidden md:inline'>Publish Ride</span></a></li>
+                <ul className='flex  border border-black h-full gap-4 md:gap-10 items-center justify-center'>
+                    <li className='border  md:flex border-black'><ModeToggle/></li>
+                    <li className='border border-black'><Link to="/search-ride"> <FontAwesomeIcon icon={faCar} size='lg'/> <span className='hidden md:inline'>Search Ride</span></Link ></li>
+                    <li className='border border-black'><Link to="/create-ride"> <FontAwesomeIcon icon={faPlusCircle} size='lg' /><span className='hidden md:inline'>Publish Ride</span></Link></li>
                     <li className='border hidden md:flex border-black'><DropdownMenuDemo/></li>
-                    <li className='border hidden md:flex border-black'><ModeToggle/></li>
                 
 
                 </ul>

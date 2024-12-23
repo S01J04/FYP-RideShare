@@ -2,7 +2,7 @@ import React from 'react'
 
 const PublishRidePage = () => {
   return (
-    <div>PublishRidePage</div>
+<div className='min-h-[calc(100vh-64px-373px)]'>SearchPage</div>
   )
 }
 

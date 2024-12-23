@@ -8,6 +8,16 @@
   padding: 0;
   border: 0 solid transparent;
 }
+/* In your global CSS or component-specific CSS */
+.hide-scrollbar {
+  overflow: scroll; /* Allows scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
 
 /* // prevent iOS font size change */
 html {
@@ -152,7 +162,26 @@ textarea {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

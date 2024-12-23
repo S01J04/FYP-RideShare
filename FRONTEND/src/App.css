@@ -4,6 +4,15 @@
   padding: 2rem;
   text-align: center;
 }
+.hide-scrollbar {
+  overflow: scroll; /* Allows scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
 
 .logo {
   height: 6em;
