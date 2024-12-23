@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button'
 import { faArrowRight, faCalendar, faDollar, faIdCard, faLocationDot, faThunderstorm, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
+import Autoplay from "embla-carousel-autoplay"
+
 import { Card, CardContent } from "@/components/ui/card"
 import {
   Carousel,
@@ -254,7 +256,13 @@ export const Home = () => {
 </section>
 
 <section className="my-10 ">
-      <Carousel className="w-[70%]  mx-auto">
+      <Carousel 
+      plugins={[
+        Autoplay({
+          delay: 2000,
+        }),
+      ]}
+      className="w-[70%]  mx-auto">
         <CarouselContent className="-ml-1">
           {data.map((item) => (
             <CarouselItem key={item.id} className="pl-1 md:basis-1/2 lg:basis-1/3">
