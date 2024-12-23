@@ -15,7 +15,7 @@ export function LoginForm({
           <form className="p-6 md:p-8">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">SIgn In</h1>
+                <h1 className="text-2xl font-bold">Sign In</h1>
                 <p className="text-balance text-neutral-500 dark:text-neutral-400">
                   Login to your Rideshare account
                 </p>
