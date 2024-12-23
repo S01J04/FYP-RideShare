@@ -15,9 +15,9 @@ const Header = () => {
                 <img className='border border-black'  src="./src/assets/newlogo.png" width={150} alt="" />
             </div>
         </div>
-        <div className="nav border border-black">
+        <div className="nav border md:mr-10 border-black">
             <nav className='h-full'>
-                <ul className='flex  border border-black h-full gap-3 items-center justify-center'>
+                <ul className='flex  border border-black h-full gap-4 md:gap-16 items-center justify-center'>
                     <li className='border border-black'><a href="#"> <FontAwesomeIcon icon={faCar} size='lg'/> <span className='hidden md:inline'>Search Ride</span></a></li>
                     <li className='border border-black'><a href="#"> <FontAwesomeIcon icon={faPlusCircle} size='lg' /><span className='hidden md:inline'>Publish Ride</span></a></li>
                     <li className='border hidden md:flex border-black'><DropdownMenuDemo/></li>
