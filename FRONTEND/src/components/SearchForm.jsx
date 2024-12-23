@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {  faCalendar, faLocationDot, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { DatePicker } from './DatePicker';
+import  SelectnoofPassengers  from './Select';
 export const SearchForm = () => {
     const [currentDate, setCurrentDate] = useState('');
 
@@ -12,10 +14,7 @@ export const SearchForm = () => {
       setCurrentDate(formattedDate); // Set the current date
     }, []);
   return (
-    <div
-       className="absolute top-[100%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[80%] xl:w-[75%]
-        border border-gray-300 dark:border-gray-600 rounded-3xl shadow-md flex flex-col md:flex-row items-center p-5 md:h-20 bg-white dark:bg-gray-800"
-     >
+    
        <form className="flex flex-col md:flex-row w-full items-center justify-around gap-4">
          {/* Pickup Location */}
          <div className="relative flex items-center w-full md:w-[22%]">
@@ -49,12 +48,13 @@ export const SearchForm = () => {
              icon={faCalendar}
              className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
            />
-           <input
+           {/* <input
              type="date"
              value={currentDate}
              onChange={(e) => setCurrentDate(e.target.value)}
              className="w-full h-10 pl-10 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-500 dark:text-gray-200 rounded-md focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
-           />
+           /> */}
+           <DatePicker/>
          </div>
    
          {/* Passenger Selector */}
@@ -63,7 +63,7 @@ export const SearchForm = () => {
              icon={faUser}
              className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
            />
-           <select
+           {/* <select
              className="w-full h-10 pl-10 border text-gray-500 dark:text-gray-200 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded-md appearance-none focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
              defaultValue=""
            >
@@ -71,10 +71,9 @@ export const SearchForm = () => {
              {[...Array(10)].map((_, i) => (
                <option key={i} value={i + 1}>{i + 1}</option>
              ))}
-           </select>
-           <span className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">
-             &#9662;
-           </span>
+           </select> */}
+            <SelectnoofPassengers/>  
+        
          </div>
    
          {/* Search Button */}
@@ -85,6 +84,6 @@ export const SearchForm = () => {
            Search
          </button>
        </form>
-     </div>
+ 
   )
 }

@@ -20,7 +20,14 @@ export const Section1 = () => {
      </div>
    
      {/* Search Form Section */}
-     <SearchForm/>
+     <div
+       className="absolute top-[100%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[80%] xl:w-[75%]
+        border border-gray-300 dark:border-gray-600 rounded-3xl shadow-md flex flex-col md:flex-row items-center p-5 md:h-20 bg-white dark:bg-gray-800"
+     >
+     <SearchForm/>        
+
+     </div>
+  
    </section>
   )
 }
