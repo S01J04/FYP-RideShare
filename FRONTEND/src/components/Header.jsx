@@ -3,6 +3,7 @@ import  {FontAwesomeIcon}  from '@fortawesome/react-fontawesome'
 import { faArrowDown, faCar,faPlusCircle,faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { DropdownMenu } from './ui/dropdown-menu'
 import { DropdownMenuDemo } from './Drop-down-menu'
+import { ModeToggle } from './ui/mode-toggle'
 
 const Header = () => {
   return (
@@ -12,7 +13,7 @@ const Header = () => {
         </div>
         <div className="logo">
             <div className="img">
-                <img className='border border-black'  src="./src/assets/newlogo.png" width={150} alt="" />
+                <img className='border border-black h-[60px] w-[100px]'  src="./src/assets/Capture-removebg-preview.png"   alt="" />
             </div>
         </div>
         <div className="nav border md:mr-10 border-black">
@@ -21,6 +22,9 @@ const Header = () => {
                     <li className='border border-black'><a href="#"> <FontAwesomeIcon icon={faCar} size='lg'/> <span className='hidden md:inline'>Search Ride</span></a></li>
                     <li className='border border-black'><a href="#"> <FontAwesomeIcon icon={faPlusCircle} size='lg' /><span className='hidden md:inline'>Publish Ride</span></a></li>
                     <li className='border hidden md:flex border-black'><DropdownMenuDemo/></li>
+                    <li className='border hidden md:flex border-black'><ModeToggle/></li>
+                
+
                 </ul>
             </nav>
         </div>

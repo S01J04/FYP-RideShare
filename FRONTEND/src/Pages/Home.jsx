@@ -13,6 +13,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import data from '@/constants/data'
+import { ModeToggle } from '@/components/Toggle'
 
 export const Home = () => {
   // Set the default date to today's date in the format yyyy-mm-dd
@@ -27,9 +28,9 @@ export const Home = () => {
   }, []);
   return (
     <div className='min-h-screen border border-green-700' >
-      <section className="relative border border-red-700">
-  {/* Background Section with Image and Content */}
-  <div className="relative bg-blue-800">
+     <section className="relative border border-red-700">
+  {/* Background Section */}
+  <div className="relative bg-blue-800 dark:bg-gray-900">
     <div className="img">
       <img
         src="https://static.vecteezy.com/system/resources/previews/025/469/566/non_2x/cartoon-transport-travel-for-banner-classic-sport-car-for-travel-at-night-asphalt-road-near-the-green-grass-and-tree-mountain-and-night-sky-with-dark-clouds-copy-space-flat-vector.jpg"
@@ -37,7 +38,7 @@ export const Home = () => {
         className="w-full h-52 md:h-96 object-cover"
       />
     </div>
-    <div className="content absolute top-0 md:top-10 left-0 right-0 flex items-center justify-center text-white text-2xl md:text-5xl font-bold">
+    <div className="content absolute top-0 md:top-10 left-0 right-0 flex items-center justify-center text-white dark:text-gray-300 text-2xl md:text-5xl font-bold">
       Your Pick of Rides at Low Prices
     </div>
   </div>
@@ -45,19 +46,19 @@ export const Home = () => {
   {/* Search Form Section */}
   <div
     className="absolute top-[100%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[80%] xl:w-[75%]
-    bg-white border border-gray-300 rounded-3xl shadow-md flex flex-col md:flex-row items-center p-5 md:h-20"
+     border border-gray-300 dark:border-gray-600 rounded-3xl shadow-md flex flex-col md:flex-row items-center p-5 md:h-20 bg-white dark:bg-gray-800"
   >
     <form className="flex flex-col md:flex-row w-full items-center justify-around gap-4">
       {/* Pickup Location */}
       <div className="relative flex items-center w-full md:w-[22%]">
         <FontAwesomeIcon
           icon={faLocationDot}
-          className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500"
+          className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
         />
         <input
           type="text"
           placeholder="Pickup Location"
-          className="w-full h-10 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
+          className="w-full h-10 pl-10 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
         />
       </div>
 
@@ -65,12 +66,12 @@ export const Home = () => {
       <div className="relative flex items-center w-full md:w-[22%]">
         <FontAwesomeIcon
           icon={faLocationDot}
-          className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500"
+          className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
         />
         <input
           type="text"
           placeholder="Drop Location"
-          className="w-full h-10 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
+          className="w-full h-10 pl-10 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
         />
       </div>
 
@@ -78,11 +79,11 @@ export const Home = () => {
       <div className="relative flex items-center w-full md:w-[18%]">
         <FontAwesomeIcon
           icon={faCalendar}
-          className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500"
+          className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
         />
         <input
           type="date"
-          className="w-full h-10 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
+          className="w-full h-10 pl-10 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-500 dark:text-gray-200 rounded-md focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
         />
       </div>
 
@@ -90,10 +91,10 @@ export const Home = () => {
       <div className="relative flex items-center w-full md:w-[16%]">
         <FontAwesomeIcon
           icon={faUser}
-          className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500"
+          className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
         />
         <select
-          className="w-full h-10 pl-10 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
+          className="w-full h-10 pl-10 border text-gray-500 dark:text-gray-200 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded-md appearance-none focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
           defaultValue=""
         >
           <option value="" disabled>Passengers</option>
@@ -101,7 +102,7 @@ export const Home = () => {
             <option key={i} value={i + 1}>{i + 1}</option>
           ))}
         </select>
-        <span className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500">
+        <span className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">
           &#9662;
         </span>
       </div>
@@ -109,13 +110,14 @@ export const Home = () => {
       {/* Search Button */}
       <button
         type="submit"
-        className="w-full md:w-[15%] h-10 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all"
+        className="w-full md:w-[15%] h-10 bg-blue-500 dark:bg-blue-700 text-white rounded-md hover:bg-blue-600 dark:hover:bg-blue-800 transition-all"
       >
         Search
       </button>
     </form>
   </div>
 </section>
+
 
 
 
@@ -175,7 +177,7 @@ export const Home = () => {
   {/* Image Container */}
   <div className='border w-full md:w-1/2 flex justify-center'>
     <img
-      src="./src/assets/carwithphone.jpg"
+      src="./src/assets/carwithphone.png"
       alt="Car"
       className="max-w-full h-auto object-cover"
     />
@@ -205,7 +207,7 @@ export const Home = () => {
   {/* Image Container */}
   <div className='border w-full md:w-1/2 flex justify-center'>
     <img
-      src="./src/assets/car2.jpg"
+      src="./src/assets/car2new.png"
       alt="Car"
       className="max-w-full h-auto object-cover"
     />
@@ -288,7 +290,6 @@ export const Home = () => {
         <CarouselNext />
       </Carousel>
     </section>
-
     </div>
   )
 }
