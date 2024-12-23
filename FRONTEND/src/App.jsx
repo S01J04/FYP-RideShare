@@ -24,7 +24,7 @@ function App() {
 
         {/* Authentication Routes */}
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/signup" element={<SignupPage />}/>
 
         {/* Protected Routes */}
         {/* <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
