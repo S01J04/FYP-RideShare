@@ -9,6 +9,8 @@ import SignupPage from "./Pages/SignupPage";
 import { RideDetailPage } from "./Pages/RideDetailPage";
 import Layout from "./Pages/Layout";
 import PublishRidePage from "./Pages/PublishRidePage";
+import Chat from "./Pages/Chat";
+import RidesSearched from "./Pages/RIdes_Searched";
 
 
 function App() {
@@ -20,8 +22,10 @@ function App() {
         <Route path="/" element={<Layout/>}>
         <Route index element={<Home />} />
         <Route path="/search-ride" element={<SearchPage />} />
-        <Route path="/ride/:id" element={<RideDetailPage />} />  
+        <Route path="/search-ride/:rides" element={<RidesSearched />} />
+        <Route path="/ride-detail/:id" element={<RideDetailPage />} />  
         <Route path="/create-ride" element={<PublishRidePage />} />
+        <Route path="/chat" element={<Chat />} />
         </ Route>
         {/* <Route path="/booking-confirmation/:id" element={<BookingConfirmation />} /> */}
 

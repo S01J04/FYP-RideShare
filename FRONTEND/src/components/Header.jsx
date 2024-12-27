@@ -5,6 +5,7 @@ import { DropdownMenu } from './ui/dropdown-menu'
 import { DropdownMenuDemo } from './Drop-down-menu'
 import { ModeToggle } from './ui/mode-toggle'
 import { Link } from 'react-router'
+import logo from '../assets/Capture-removebg-preview.png';
 
 const Header = () => {
   return (
@@ -14,7 +15,7 @@ const Header = () => {
         </div>
         <div className="logo">
             <div className="img">
-                <Link to={"/"}><img className='border border-black h-[60px] w-[100px]'  src="./src/assets/Capture-removebg-preview.png"   alt="" />
+                <Link to={"/"}><img className='border border-black h-[60px] w-[100px]'  src={logo}   alt="" />
                 </Link>
             </div>
         </div>

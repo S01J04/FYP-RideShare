@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import {  faCalendar, faLocationDot, faUser } from '@fortawesome/free-solid-svg-icons'
+import {  faCalendar, faLocationDot, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DatePicker } from './DatePicker';
 import  SelectnoofPassengers  from './Select';
+import {  useNavigate } from 'react-router';
 export const SearchForm = () => {
     const [currentDate, setCurrentDate] = useState('');
-
+    const navigate=useNavigate()
  
 
     useEffect(() => {
@@ -25,7 +26,7 @@ export const SearchForm = () => {
            <input
              type="text"
              placeholder="Pickup Location"
-             className="w-full h-10 pl-10 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
+             className="lg:text-base md:text-sm w-full h-10 pl-10 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
            />
          </div>
    
@@ -38,16 +39,16 @@ export const SearchForm = () => {
            <input
              type="text"
              placeholder="Drop Location"
-             className="w-full h-10 pl-10 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
+             className="lg:text-base md:text-sm w-full h-10 pl-10 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring focus:ring-blue-400 transition-all hover:border-blue-500"
            />
          </div>
    
          {/* Date Picker */}
          <div className="relative flex items-center w-full md:w-[18%]">
-           <FontAwesomeIcon
+           {/* <FontAwesomeIcon
              icon={faCalendar}
-             className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
-           />
+             className="absolute top-1/2 md:left-3 lg:left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
+           /> */}
            {/* <input
              type="date"
              value={currentDate}
@@ -58,7 +59,7 @@ export const SearchForm = () => {
          </div>
    
          {/* Passenger Selector */}
-         <div className="relative flex items-center w-full md:w-[16%]">
+         <div className="relative flex items-center w-full md:w-[26%] ">
            <FontAwesomeIcon
              icon={faUser}
              className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
@@ -77,12 +78,23 @@ export const SearchForm = () => {
          </div>
    
          {/* Search Button */}
-         <button
-           type="submit"
-           className="w-full md:w-[15%] h-10 bg-blue-500 dark:bg-blue-700 text-white rounded-md hover:bg-blue-600 dark:hover:bg-blue-800 transition-all"
-         >
-           Search
-         </button>
+         <button 
+         onClick={(e) => {
+         navigate('/search-ride/:rides')
+         }}
+  type="submit"
+  className=" md:text-center lg:w-[15%] h-10 bg-blue-500 dark:bg-blue-700 text-white rounded-md hover:bg-blue-600 dark:hover:bg-blue-800 md:rounded-full  lg:rounded-md transition-all justify-center relative flex items-center w-full md:w-10 "
+>
+  {/* Show the search icon on non-tablet sizes */}
+  <span className="block md:block lg:block">
+    <FontAwesomeIcon icon={faSearch} className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-300" />
+  </span>
+
+  {/* Show "Search" text only on tablet sizes */}
+  <span className=" md:hidden  lg:block">Search</span>
+</button>
+
+
        </form>
  
   )
