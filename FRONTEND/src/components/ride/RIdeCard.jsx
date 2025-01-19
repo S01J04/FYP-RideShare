@@ -65,7 +65,7 @@ export default function RideCard({ ride }) {
               <span>{ride.seats} seats left</span>
             </div>
             <Badge variant="secondary">
-              {ride.type === "mixed" ? (
+              {ride.type === "cargo" ? (
                 <div className="flex items-center gap-1">
                   <Package className="h-3 w-3" />
                   <span>Cargo allowed</span>

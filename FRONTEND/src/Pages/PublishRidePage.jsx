@@ -6,8 +6,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { MapPin } from "lucide-react";
 import { DatePicker } from "@/components/DatePicker";
+import { useEffect } from "react";
 
 const PublishRidePage = () => {
+  const [load, setLoading] = useState(true);
+  const handleLoad = () => {
+    setLoading(false);
+  };
   const [rideDetails, setRideDetails] = useState({
     from: "",
     to: "",
@@ -42,11 +47,13 @@ const PublishRidePage = () => {
     console.log("Ride Details Submitted:", rideDetails);
   };
 
+
+
   return (
-    <div className="min-h-screen w-full flex flex-col md:flex-row justify-center bg-gray-100 dark:bg-gray-900">
+    <div className=" pt-16  -white  w-full flex flex-col md:flex-row justify-center">
       {/* Left Side: Form */}
-      <div className="w-full md:w-1/2 p-6 md:p-10 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-        <h2 className="text-3xl font-semibold mb-6 text-center text-gray-900 dark:text-gray-100">
+      <div className="w-full   -white md:w-1/2 p-6 md:p-10  rounded-lg shadow-lg">
+        <h2 className="text-3xl font-semibold mb-6 text-center  ">
           Publish a Ride
         </h2>
 
@@ -231,12 +238,15 @@ const PublishRidePage = () => {
       </div>
 
       {/* Right Side: Map */}
-      <div className="hidden md:flex my-10 border border-gray-300 dark:border-gray-700 rounded-lg md:w-1/2 h-auto bg-gray-200 dark:bg-gray-700">
-        <img
-          className="w-full h-full object-cover rounded-lg"
-          src="https://developers.google.com/static/maps/images/landing/hero_maps_static_api.png"
-          alt="Map"
-        />
+      <div className="hidden md:flex my-10  -gray-300  rounded-lg md:w-1/2 h-auto bg-gray-200 dark:bg-gray-700">
+      {load && <p>Loading...</p>}
+      <img
+        onLoad={handleLoad}
+        style={{ display: load ? "none" : "block" }}
+        className="w-full h-full  object-cover rounded-lg"
+        src="https://developers.google.com/static/maps/images/landing/hero_maps_static_api.png"
+        alt="Map"
+      />
       </div>
     </div>
   );

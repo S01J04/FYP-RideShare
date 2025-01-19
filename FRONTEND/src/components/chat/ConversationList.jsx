@@ -4,8 +4,8 @@ import ConversationItem from './ConversationItem';
 
 export default function ConversationList({ conversations, onSelect }) {
   return (
-    <div className="w-full h-full flex flex-col border-r">
-      <div className="p-4 border-b">
+    <div className="w-full h-full flex bg-background flex-col shadow-md">
+      <div className="p-4 shadow-sm">
         <div className="relative">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input placeholder="Search chats..." className="pl-9" />

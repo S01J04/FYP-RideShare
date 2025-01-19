@@ -17,13 +17,16 @@ import { faArrowDown, faBell, faGear, faRightFromBracket, faRightToBracket, faUs
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Link } from "react-router"
 
-export function DropdownMenuDemo() {
+export function DropdownMenuDemo( { color } ) {
   return (
     <DropdownMenu>
   <DropdownMenuTrigger asChild>
     <Link className="flex items-center" href="#">
-      <FontAwesomeIcon icon={faUserCircle} size="2x" />
-      <FontAwesomeIcon icon={faArrowDown} className="px-1" size="sm" />
+      <FontAwesomeIcon  style={{
+              color: color ,
+              transition: "color 0.3s ease-in-out", // Smooth transition for text color
+            }}  icon={faUserCircle} size="2x" />
+
     </Link>
   </DropdownMenuTrigger>
   <DropdownMenuContent className="w-56">

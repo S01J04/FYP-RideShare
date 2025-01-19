@@ -15,7 +15,7 @@ import data from '@/constants/data'
 
 export const Section6 = () => {
   return (
-    <section className="my-10 ">
+    <section className="mb-20 py-5  ">
       <Carousel 
       plugins={[
         Autoplay({
@@ -36,8 +36,8 @@ export const Section6 = () => {
                       className=" h-[250px] w-[100%] object-cover  rounded-md"
                     />
                     <h3 className="text-lg font-semibold">{item.title}</h3>
-                    <p className="text-sm text-gray-500">{item.description}</p>
-                    <span className="text-blue-500 font-bold">{item.price}</span>
+                    <p className="text-sm ">{item.description}</p>
+                    <span className=" font-bold">{item.price}</span>
                   </CardContent>
                 </Card>
               </div>

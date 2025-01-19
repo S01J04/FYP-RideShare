@@ -2,7 +2,7 @@ import React from "react";
 
 export default function App() {
   return (
-    <footer className="bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-200 lg:text-left">
+    <footer className=" bg-primary-foreground dark:text-white lg:text-left">
       {/* Social Media Section */}
       <div className="flex flex-col md:flex-row items-center justify-between border-b border-neutral-200 dark:border-neutral-600 p-6">
         <div className="mb-4 md:mb-0">
@@ -21,7 +21,7 @@ export default function App() {
             <a
               key={idx}
               href={social.href}
-              className="text-neutral-600 dark:text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-100 transition"
+              className=" "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -114,12 +114,12 @@ export default function App() {
       </div>
 
       {/* Copyright */}
-      <div className="bg-neutral-200 dark:bg-neutral-700 text-center py-4">
+      <div className=" bg-background  text-center py-1">
         <p>
           © 2023 Copyright:{" "}
           <a
             href="https://tw-elements.com/"
-            className="text-neutral-800 dark:text-neutral-300 font-semibold hover:underline"
+            className=" font-semibold hover:underline"
           >
             TW Elements
           </a>

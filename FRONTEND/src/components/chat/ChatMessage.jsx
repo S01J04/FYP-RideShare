@@ -13,7 +13,7 @@ export default function ChatMessage({ message, isOwn }) {
       
       <div className={cn(
         "max-w-[70%] rounded-lg p-3",
-        isOwn ? "bg-primary text-primary-foreground" : "bg-muted"
+        isOwn ? "bg-primary-foreground text-black dark:text-white" : "bg-muted"
       )}>
         <p className="text-sm">{message.content}</p>
         <span className="text-xs opacity-70 mt-1 block">

@@ -13,7 +13,8 @@ export function RideDetailPage() {
     return <div className="container py-8">Ride details not available.</div>;
   }
   return (
-    <div className="container py-8">
+    <div className=" py-16 min-h-[65vh] md:w-[93%]  xl:w-[65%] mx-auto">
+      <div className="h-20"></div>
       <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
         <main>
           <div className="bg-card rounded-lg p-6 mb-6">

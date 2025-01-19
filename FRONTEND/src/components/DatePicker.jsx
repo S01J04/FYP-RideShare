@@ -19,9 +19,9 @@ export function DatePicker() {
       {/* Popover Trigger */}
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
+          
           className={cn(
-            "w-[100%] lg:text-base md:text-sm  justify-start text-left font-normal",
+            "w-[100%] bg-white pr-8  text-black dark:text-gray-500 hover:bg-slate-200 lg:text-base md:text-sm  justify-start text-left font-normal",
             !date && "text-muted-foreground" // Placeholder styling when no date is selected
           )}
         >
