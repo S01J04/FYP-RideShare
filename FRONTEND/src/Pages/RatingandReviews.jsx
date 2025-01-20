@@ -52,7 +52,7 @@ const RatingsPage = () => {
         {/* Individual Rating Section */}
         <div className="   p-6 space-y-4">
           {/* Reviewer Info */}
-          <Link to={'/rider-profile/Muhammad-Sohaib'}><div className="flex hover:bg-blue-100 rounded-lg py-2 px-2 justify-between items-center space-x-4">
+          <Link to={'/rider-profile/Muhammad-Sohaib'}><div className="flex hover:bg-primary rounded-lg py-2 px-2 justify-between items-center space-x-4">
             <div className="flex  items-center gap-3"><img
               src="https://randomuser.me/api/portraits/men/3.jpg"
               alt="Reviewer"

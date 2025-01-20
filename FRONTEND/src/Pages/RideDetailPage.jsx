@@ -20,43 +20,43 @@ export const RideDetailPage = () => {
         {/* Ride Information Section */}
         <div className="md:col-span-2 space-y-4">
           <div className="bg-card px-6 pb-6 shadow-md rounded-2xl p-4">
-            <div className="flex gap-5 flex-col justify-center items-start">
-              <div className="relative flex gap-7 items-start">
-                {/* Vertical Line */}
-                <div className="absolute left-[32%] h-16 -bottom-10 w-1 "></div>
+          <div className="flex gap-5 flex-col justify-center items-start">
+                <div className="relative flex gap-7 items-start">
+                  {/* Vertical Line */}
+                  <div className="absolute left-[32%] h-16 -bottom-10 w-1 bg-gray-800"></div>
 
-                {/* Top Circle */}
-                <div className="absolute w-3 h-3  rounded-full left-[30%] top-3"></div>
+                  {/* Top Circle */}
+                  <div className="absolute w-3 h-3 bg-gray-800 rounded-full left-[30%] top-3"></div>
 
-                {/* Bottom Circle */}
-                <div className="absolute w-3 h-3 rounded-full left-[30%] -bottom-10"></div>
+                  {/* Bottom Circle */}
+                  <div className="absolute w-3 h-3 bg-gray-800 rounded-full left-[30%] -bottom-10"></div>
 
-                <p className="text-md font-medium">
-                  05:30
-                  <p className="text-sm font-medium text-gray-700">1h40</p>
-                </p>
-                <p className="text-lg font-semibold">
-                  Redditch
-                  <p className="text-xs text-gray-500">62 Unicorn Hill, UK</p>
-                </p>
-              </div>
-
-              <div className="flex gap-7 items-start">
-                <p className="text-md font-medium">05:30</p>
-                <p className="text-lg font-semibold">
-                  Redditch
-                  <p className="text-sm text-gray-800">
-                    Northolt Underground Station, London, Mandeville Rd, UK
+                  <p className="text-md font-medium">
+                    05:30
+                    <p className="text-sm font-medium text-gray-700">1h40</p>
                   </p>
-                </p>
+                  <p className="text-lg font-semibold">
+                    Redditch
+                    <p className="text-xs text-gray-500">62 Unicorn Hill, UK</p>
+                  </p>
+                </div>
+
+                <div className="flex gap-7 items-start">
+                  <p className="text-md font-medium">05:30</p>
+                  <p className="text-lg font-semibold">
+                    Redditch
+                    <p className="text-sm text-gray-800">
+                      Northolt Underground Station, London, Mandeville Rd, UK
+                    </p>
+                  </p>
+                </div>
               </div>
-            </div>
           </div>
 
           {/* Driver Details */}
           <div className="bg-card flex flex-col gap-3 shadow-md rounded-lg p-6 space-y-4">
             <Link to={'/rider-profile/Muhammad-Sohaib'}>
-              <div className="flex items-center space-x-4 hover:bg-blue-100 py-2 px-2 rounded-xl">
+              <div className="flex items-center space-x-4 hover:bg-primary py-2 px-2 rounded-xl">
                 <img
                   src="https://randomuser.me/api/portraits/women/1.jpg"
                   alt="Driver"

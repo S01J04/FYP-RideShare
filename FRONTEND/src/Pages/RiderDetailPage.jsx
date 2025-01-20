@@ -23,7 +23,7 @@ const RiderProfilePage = () => {
       {/* Experience and Rating */}
       <div className="mt-4 ">
         <p className="text-gray-500">Experience level: Newcomer</p>
-        <Link to={'/rider-rating/sohaib'}><p className="flex items-center gap-2  hover:bg-blue-100 rounded-lg px-3 py-2 text-gray-700">
+        <Link to={'/rider-rating/sohaib'}><p className="flex items-center gap-2  hover:bg-primary-foreground hover:dark:text-gray-400 rounded-lg px-3 py-2 text-gray-700">
           <span className="text-lg font-bold"><FontAwesomeIcon size="sm" color="gray" icon={faStar}/> 5/5</span> — 1 rating
         </p></Link>
       </div>
