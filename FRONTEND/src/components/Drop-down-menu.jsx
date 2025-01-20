@@ -30,9 +30,9 @@ export function DropdownMenuDemo( { color } ) {
     </Link>
   </DropdownMenuTrigger>
   <DropdownMenuContent className="w-56">
-    <DropdownMenuLabel>Muhammad Sohaib</DropdownMenuLabel>
+    <DropdownMenuLabel className="text-lg">Muhammad Sohaib</DropdownMenuLabel>
     <DropdownMenuSeparator />
-    <DropdownMenuGroup>
+    <DropdownMenuGroup className="flex flex-col gap-2">
       <DropdownMenuItem>
         Profile
         <DropdownMenuShortcut><FontAwesomeIcon icon={faUser}/></DropdownMenuShortcut>
@@ -47,7 +47,7 @@ export function DropdownMenuDemo( { color } ) {
       </DropdownMenuItem>
     </DropdownMenuGroup>
     <DropdownMenuSeparator />
-    <DropdownMenuGroup>
+    <DropdownMenuGroup className="flex flex-col gap-2">
       <DropdownMenuItem>
         Log out
         <DropdownMenuShortcut><FontAwesomeIcon icon={faRightToBracket}/></DropdownMenuShortcut>

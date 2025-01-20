@@ -11,6 +11,7 @@ import Layout from "./Pages/Layout";
 import PublishRidePage from "./Pages/PublishRidePage";
 import Chat from "./Pages/Chat";
 import RidesSearched from "./Pages/RIdes_Searched";
+import SettingsPage from "./Pages/Settings";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/ride-detail/:id" element={<RideDetailPage />} />  
         <Route path="/create-ride" element={<PublishRidePage />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/users-setting" element={<SettingsPage />} />
         </ Route>
         {/* <Route path="/booking-confirmation/:id" element={<BookingConfirmation />} /> */}
 
