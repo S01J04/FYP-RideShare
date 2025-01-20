@@ -24,8 +24,8 @@ export const Home = () => {
           <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                <Car className="h-8 w-8 text-primary" />
+              <div className="w-24 h-24 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                <Car size={54} className=" text-secondary" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Convenient Travel</h3>
               <p className="text-muted-foreground">
@@ -33,8 +33,8 @@ export const Home = () => {
               </p>
             </div>
             <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                <Package className="h-8 w-8 text-primary" />
+              <div className="w-24 h-24 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                <Package size={54} className=" text-secondary" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Cargo Transport</h3>
               <p className="text-muted-foreground">
@@ -42,8 +42,8 @@ export const Home = () => {
               </p>
             </div>
             <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                <Shield className="h-8 w-8 text-primary" />
+              <div className="w-24 h-24 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                <Shield size={54} className=" text-secondary" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Safe & Secure</h3>
               <p className="text-muted-foreground">

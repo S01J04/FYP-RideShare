@@ -75,7 +75,7 @@ export const Search_Rides = () => {
       {/* Search Button */}
       <button
         type="submit" // Form submission will trigger onSubmit
-        className="md:text-center lg:w-[15%]   border-none h-10  rounded-md hover:bg-background hover:text-black md:rounded-full lg:rounded-md transition-all justify-center relative flex items-center w-full "
+        className="md:text-center lg:w-[15%] border  h-10 text-white rounded-md hover:bg-secondary hover:dark:text-white hover:text-black md:rounded-full lg:rounded-md transition-all justify-center relative flex items-center w-full md:w-10"
       >
         <span className="">
           <FontAwesomeIcon
@@ -158,7 +158,7 @@ export const SearchForm = () => {
       {/* Search Button */}
       <button
         type="submit" // Form submission will trigger onSubmit
-        className="md:text-center lg:w-[15%] border border-white h-10 text-white rounded-md hover:bg-background hover:text-black md:rounded-full lg:rounded-md transition-all justify-center relative flex items-center w-full md:w-10"
+        className="md:text-center lg:w-[15%] border  h-10 text-white rounded-md hover:bg-secondary hover:dark:text-white hover:text-black md:rounded-full lg:rounded-md transition-all justify-center relative flex items-center w-full md:w-10"
       >
         <span className="block md:block lg:block">
           <FontAwesomeIcon

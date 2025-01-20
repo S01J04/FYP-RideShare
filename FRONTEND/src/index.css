@@ -188,13 +188,13 @@ textarea {
   :root {
     --background: 200, 20%, 97%; /* Light mode */
     --foreground: 0 0% 0%;
-    --card: 168 87% 89%;
+    --card: 197, 37%, 96%;
     --card-foreground: 0 0% 0%;
     --popover: 168 87% 89%;
     --popover-foreground: 0 0% 0%;
-    --primary: 187 88% 42%;
+    --primary: 194, 72%, 72%;
     --primary-foreground: 189, 31%, 75%;
-    --secondary: 5 60% 44%;
+    --secondary: 177, 61%, 63%;
     --secondary-foreground: 0 0% 0%;
     --muted: 168 87% 89%;
     --muted-foreground: 0 0% 0%;
@@ -216,13 +216,13 @@ textarea {
   .dark {
     --background: 200, 20%, 3%; /* Dark mode */
     --foreground: 0 0% 100%;
-    --card: 187 100% 19%;
+    --card: 189, 37%, 4%;
     --card-foreground: 0 0% 100%;
     --popover: 187 100% 19%;
     --popover-foreground: 0 0% 100%;
-    --primary: 180 100% 28%;
+    --primary: 186, 78%, 7%;
     --primary-foreground: 188, 32%, 25%;
-    --secondary: 5 60% 44%;
+    --secondary: 178, 59%, 18%;
     --secondary-foreground: 0 0% 100%;
     --muted: 187 100% 19%;
     --muted-foreground: 0 0% 100%;

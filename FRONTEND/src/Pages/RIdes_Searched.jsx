@@ -118,19 +118,19 @@ export default function RidesSearched() {
               <div
                 key={tab.label}
                 onClick={() => handleTabChange(tab.label)} // Use the tab click handler
-                className={`relative flex-1 text-center py-4 cursor-pointer ${
+                className={`relative flex-1 text-center  py-4 cursor-pointer ${
                   activeTab === tab.label
-                    ? "text-primary"
+                    ? "text-secondary"
                     : "hover:bg-gray-200 hover:dark:bg-gray-800"
                 }`}
               >
                 {tab.icon && (
-                  <FontAwesomeIcon className="mx-1" icon={tab.icon} />
+                  <FontAwesomeIcon className="mx-1 dark:white" icon={tab.icon} />
                 )}
-                <span className="first:block hidden md:block">{tab.label}</span>
+                <span className="first:block  hidden md:block">{tab.label}</span>
                 {/* Animated bottom border */}
                 <span
-                  className={`absolute bottom-0 left-0 h-1 w-full bg-primary transition-transform duration-300 ${
+                  className={`absolute bottom-0 left-0 h-1 w-full bg-secondary transition-transform duration-300 ${
                     activeTab === tab.label ? "scale-x-100" : "scale-x-0"
                   }`}
                 />

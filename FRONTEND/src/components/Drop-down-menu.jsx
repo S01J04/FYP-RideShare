@@ -34,16 +34,12 @@ export function DropdownMenuDemo( { color } ) {
     <DropdownMenuSeparator />
     <DropdownMenuGroup className="flex flex-col gap-2">
       <DropdownMenuItem>
-        Profile
+        <Link to={'/users-setting'}>Profile</Link>
         <DropdownMenuShortcut><FontAwesomeIcon icon={faUser}/></DropdownMenuShortcut>
       </DropdownMenuItem>
       <DropdownMenuItem>
-        Notifications
+        Inbox
         <DropdownMenuShortcut><FontAwesomeIcon icon={faBell}/></DropdownMenuShortcut>
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        Settings
-        <DropdownMenuShortcut><FontAwesomeIcon icon={faGear}/></DropdownMenuShortcut>
       </DropdownMenuItem>
     </DropdownMenuGroup>
     <DropdownMenuSeparator />
@@ -53,7 +49,7 @@ export function DropdownMenuDemo( { color } ) {
         <DropdownMenuShortcut><FontAwesomeIcon icon={faRightToBracket}/></DropdownMenuShortcut>
       </DropdownMenuItem>
       <DropdownMenuItem>
-        Log in
+        <Link to={'/login'}>Log in</Link>
         <DropdownMenuShortcut><FontAwesomeIcon icon={faRightFromBracket}/></DropdownMenuShortcut>
       </DropdownMenuItem>
     </DropdownMenuGroup>

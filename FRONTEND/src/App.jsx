@@ -12,6 +12,9 @@ import PublishRidePage from "./Pages/PublishRidePage";
 import Chat from "./Pages/Chat";
 import RidesSearched from "./Pages/RIdes_Searched";
 import SettingsPage from "./Pages/Settings";
+import BookingPage from "./Pages/BookingPage";
+import RiderProfilePage from "./Pages/RiderDetailPage";
+import RatingsPage from "./Pages/RatingandReviews";
 
 
 function App() {
@@ -28,6 +31,9 @@ function App() {
         <Route path="/create-ride" element={<PublishRidePage />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/users-setting" element={<SettingsPage />} />
+        <Route path="/ride-booking/:rideId" element={<BookingPage />} />
+        <Route path="/rider-profile/:riderId" element={<RiderProfilePage />} />
+        <Route path="/rider-rating/:riderId" element={<RatingsPage />} />
         </ Route>
         {/* <Route path="/booking-confirmation/:id" element={<BookingConfirmation />} /> */}
 
