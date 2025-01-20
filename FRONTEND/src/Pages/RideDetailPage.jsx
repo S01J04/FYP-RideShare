@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { faArrowLeft, faCab, faCircleInfo, faIcicles } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight, faCab, faCircleInfo, faIcicles } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router";
 
@@ -101,6 +101,9 @@ export const RideDetailPage = () => {
                   BMW 5 SERIES - Blue
                 </p>
               </div>
+              <div>
+                <Link to={'/chat'}><Button className="bg-transparent border rounded-3xl">Contact</Button></Link>
+              </div>
             </div>
           </div>
         </div>
@@ -165,6 +168,18 @@ export const RideDetailPage = () => {
               <Link to={'/ride-booking/:rideId'}><Button className="mt-4 w-full bg-secondary text-white  hover:bg-primary hover:text-black">
                 Request a booking
               </Button></Link>
+            </div>
+            <div className="bg-card flex flex-col gap-4 shadow-md rounded-lg p-4 mt-4">
+              <h3>Passangers</h3>
+              <div className="flex justify-between items-center">
+                <p className="text-sm flex items-center gap-3"><img className="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/1.jpg" alt="" /> Zaryab</p>
+                <p className="text-lg font-semibold"><FontAwesomeIcon icon={faArrowRight}/></p>
+              </div>
+              <div className="flex justify-between items-center">
+                <p className="text-sm flex items-center gap-3"><img className="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/1.jpg" alt="" /> Zaryab</p>
+                <p className="text-lg font-semibold"><FontAwesomeIcon icon={faArrowRight}/></p>
+              </div>
+              
             </div>
           </div>
         </div>

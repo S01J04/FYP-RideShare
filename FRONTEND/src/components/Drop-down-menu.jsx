@@ -20,23 +20,24 @@ import { Link } from "react-router"
 export function DropdownMenuDemo( { color } ) {
   return (
     <DropdownMenu>
+       <Link className="flex items-center" href="#">
   <DropdownMenuTrigger asChild>
-    <Link className="flex items-center" href="#">
+   
       <FontAwesomeIcon  style={{
               color: color ,
               transition: "color 0.3s ease-in-out", // Smooth transition for text color
             }}  icon={faUserCircle} size="2x" />
 
-    </Link>
-  </DropdownMenuTrigger>
+   
+  </DropdownMenuTrigger> </Link>
   <DropdownMenuContent className="w-56">
     <DropdownMenuLabel className="text-lg">Muhammad Sohaib</DropdownMenuLabel>
     <DropdownMenuSeparator />
     <DropdownMenuGroup className="flex flex-col gap-2">
-      <DropdownMenuItem>
-        <Link to={'/users-setting'}>Profile</Link>
+    <Link className="cursor-pointer" to={'/users-setting'}>  <DropdownMenuItem>
+        Profile
         <DropdownMenuShortcut><FontAwesomeIcon icon={faUser}/></DropdownMenuShortcut>
-      </DropdownMenuItem>
+      </DropdownMenuItem></Link>
       <DropdownMenuItem>
         Inbox
         <DropdownMenuShortcut><FontAwesomeIcon icon={faBell}/></DropdownMenuShortcut>
