@@ -8,6 +8,7 @@ import { Section6 } from '@/components/HomeComponents/Section6'
 import '../index.css'
 import { Car, Package, Shield } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+
 export const Home = () => {
   // Set the default date to today's date in the format yyyy-mm-dd
   
@@ -62,10 +63,10 @@ export const Home = () => {
             Join thousands of happy travelers using our platform daily.
           </p>
           <div className="flex justify-center gap-4">
-            <Button variant="" size="lg">
+            <Button  variant="" size="lg">
               Find a Ride
             </Button>
-            <Button variant="" size="lg">
+            <Button  variant="" size="lg">
               Offer a Ride
             </Button>
           </div>

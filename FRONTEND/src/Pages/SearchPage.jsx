@@ -26,16 +26,17 @@ export const SearchPage = () => {
       </div>
       
       {routes_data.map((route, index) => (
-        <div key={index} className='border-t-2 last:border-b-2  border-gray-300 w-[90%]  md:w-[80%] xl:w-[65%]'>
-          <div className='my-3 w-[94%] flex mx-auto'>
+        <div key={index} className=' hover:bg-gray-200 text-md rounded-lg  border-gray-300 w-[90%]  md:w-[80%] xl:w-[65%]'>
+          <div className=' w-[94%] flex mx-auto items-center  '>
             <div className='flex items-center'>
-              <FontAwesomeIcon className='text-gray-600 dark:text-gray-400' size='2xl' icon={faClock} />
+              <FontAwesomeIcon className='text-gray-600 dark:text-gray-400' size='xl' icon={faClock} />
             </div>
             <div className='mx-2'>
               <div>{route.route}</div>
-              <div className='text-gray-400'>{route.passengers}-Passengers</div>
+              <div className='text-gray-400 text-sm'>{route.passengers}-Passengers</div>
             </div>
           </div>
+          <hr  className='border-gray-200 my-3'/>
         </div>
       ))}
     

@@ -1,199 +1,166 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from "react";
 
-export default function SettingsPage() {
-  const [activeTab, setActiveTab] = useState("profile");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const handleCloseSidebar = () => {
-    setSidebarOpen(false);
-  };
+const Profile = () => {
+  const [selected, setSelected] = useState("profile");
 
   return (
-    <div className="min-h-screen relative">
-      {/* Header for Mobile */}
-      <div className=" h-20 md:h-14"></div>
-      <div className="h-0 flex items-center justify-between px-4 md:hidden">
-        <Button variant="outline" onClick={() => setSidebarOpen(!sidebarOpen)}>
-          ☰
-        </Button>
-        <h1 className="text-xl font-bold">Settings</h1>
-      </div>
+    <div className="max-w-4xl mx-auto p-6 rounded-lg">
+      <div className="h-16"></div>
 
-      <div className="flex">
-        {/* Sidebar Navigation */}
-        <aside
-          className={`fixed z-20 top-16 md:top-5 left-0 rounded-lg h-[calc(100vh-4.8rem)] w-[65%] dark:border border-white  p-4 shadow-lg  transition-transform transform ${
-            sidebarOpen ? "translate-x-0 " : "-translate-x-full"
-          } md:relative md:translate-x-0 md:block md:w-64`}
+      {/* Tabs for Profile and Account */}
+      <div className="text-2xl my-5 font-semibold flex flex-col md:flex-row items-center justify-center text-center">
+        <div
+          onClick={() => setSelected("profile")}
+          className={`cursor-pointer border-b w-[50%] md:min-w-64 transition-all duration-300 ease-in-out ${
+            selected === "profile" ? "border-secondary border-b-4" : "border-gray-200"
+          }`}
         >
-        <div className="w-full flex justify-end">
-        {sidebarOpen && (
-            <Button variant="outline" onClick={() => setSidebarOpen(!sidebarOpen)}>
-            X
-          </Button>
-        )}
+          Profile
         </div>
-          <nav className="flex justify-start items-start  md:items-center flex-col gap-4">
-            <Button
-              variant="link"
-              onClick={() => {
-                setActiveTab("profile");
-                handleCloseSidebar();
-              }}
-            >
-              Profile
-            </Button>
-            <Button
-              variant="link"
-              onClick={() => {
-                setActiveTab("account");
-                handleCloseSidebar();
-              }}
-            >
-              Account
-            </Button>
-            <Button
-              variant="link"
-              onClick={() => {
-                setActiveTab("rides");
-                handleCloseSidebar();
-              }}
-            >
-              Rides
-            </Button>
-            <Button
-              variant="link"
-              onClick={() => {
-                setActiveTab("notifications");
-                handleCloseSidebar();
-              }}
-            >
-              Notifications
-            </Button>
-            <Button
-              variant="link"
-              onClick={() => {
-                setActiveTab("privacy");
-                handleCloseSidebar();
-              }}
-            >
-              Privacy
-            </Button>
-          </nav>
-        </aside>
-
-        {/* Overlay to close sidebar */}
-        {sidebarOpen && (
-          <div
-            className="fixed inset-0 z-10 bg-black bg-opacity-85 md:hidden"
-            onClick={handleCloseSidebar}
-          />
-        )}
-
-        {/* Main Content */}
-        <main className="flex-1 p-6 ">
-          {activeTab === "profile" && (
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Profile</h2>
-              <div className="grid gap-4">
-                <div>
-                  <Label htmlFor="username">Username</Label>
-                  <Input id="username" type="text" placeholder="Your username" />
-                </div>
-                <div>
-                  <Label htmlFor="bio">Bio</Label>
-                  <Input id="bio" type="text" placeholder="Tell us about yourself" />
-                </div>
-                <div>
-                  <Label htmlFor="avatar">Profile Picture</Label>
-                  <Input id="avatar" type="file" />
-                </div>
-                <div>
-                  <Label htmlFor="car">Car Details</Label>
-                  <Input id="car" type="text" placeholder="Your car details" />
-                </div>
-                <div>
-                  <Label htmlFor="preferences">Preferences</Label>
-                  <Input id="preferences" type="text" placeholder="Your preferences" />
-                </div>
-                <div className="flex items-center">
-                  <Label htmlFor="profile-public">Public Profile</Label>
-                  <Switch id="profile-public" />
-                </div>
-                <Button>Update Profile</Button>
-              </div>
-            </div>
-          )}
-          {activeTab === "account" && (
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Account</h2>
-              <div className="grid gap-4">
-                <div>
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="Your email address" />
-                </div>
-                <div>
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input id="phone" type="tel" placeholder="Your phone number" />
-                </div>
-                <Button>Change Password</Button>
-                <Button variant="destructive">Delete Account</Button>
-              </div>
-            </div>
-          )}
-          {activeTab === "rides" && (
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Completed Rides</h2>
-              <div className="grid gap-4">
-                <div className="border p-4 rounded-md">
-                  <p><strong>Ride to:</strong> City A</p>
-                  <p><strong>Date:</strong> 2023-01-10</p>
-                  <Button variant="link">View Details</Button>
-                </div>
-                <div className="border p-4 rounded-md">
-                  <p><strong>Ride to:</strong> City B</p>
-                  <p><strong>Date:</strong> 2023-01-15</p>
-                  <Button variant="link">View Details</Button>
-                </div>
-              </div>
-            </div>
-          )}
-          {activeTab === "notifications" && (
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
-              <div>
-                <Label>Email Notifications</Label>
-                <Switch />
-              </div>
-              <div>
-                <Label>SMS Notifications</Label>
-                <Switch />
-              </div>
-              <div>
-                <Label>Push Notifications</Label>
-                <Switch />
-              </div>
-            </div>
-          )}
-          {activeTab === "privacy" && (
-            <div>
-              <h2 className="text-2xl font-semibold mb-4">Privacy</h2>
-              <div>
-                <Label>Location Access</Label>
-                <Switch />
-              </div>
-              <div>
-                <Label>Contact Sync</Label>
-                <Switch />
-              </div>
-            </div>
-          )}
-        </main>
+        <div
+          onClick={() => setSelected("account")}
+          className={`cursor-pointer border-b w-[50%] md:min-w-52 transition-all duration-300 ease-in-out ${
+            selected === "account" ? "border-secondary border-b-4" : "border-gray-200"
+          }`}
+        >
+          Account
+        </div>
       </div>
+
+      {/* Profile Tab */}
+      {selected === "profile" ? (
+        <div className=" ml-28">
+          {/* Profile Header */}
+          <div className="flex  items-center gap-4 ">
+            <img
+              src="https://randomuser.me/api/portraits/women/1.jpg"
+              alt="Profile"
+              className="w-16 h-16 rounded-full object-cover"
+            />
+            <div>
+              <h2 className="text-xl font-semibold">Farooq</h2>
+              <span className="text-sm text-gray-500">Expert</span>
+            </div>
+          </div>
+
+          {/* Edit Options */}
+          <div className="space-y-4 flex flex-col items-start mb-2 mt-4">
+            <button className="text-secondary text-sm hover:underline">Edit profile photo</button>
+            <button className="text-secondary text-sm hover:underline">Edit personal data</button>
+          </div>
+          <hr className=" border-gray-200 my-4" />
+
+          {/* Verification Section */}
+          <div className=" text-sm">
+            <h3 className="text-md font-semibold mb-4">Verify your profile</h3>
+            <ul className="space-y-3">
+              <li className="flex items-center gap-2">
+                <span className="text-secondary">
+                  <FontAwesomeIcon icon={faPlusCircle} />
+                </span>
+                <button className="text-secondary text-sm hover:underline">
+                  Confirm identification document
+                </button>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-500">✔</span>
+                <span>engineerfarooq123@gmail.com</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-green-500">✔</span>
+                <span>+49 176 8791 5376</span>
+              </li>
+            </ul>
+          </div>
+          <hr className="my-4 border-4 rounded-full border-gray-200 " />
+          {/* Profile Section */}
+          <div className=" text-sm">
+            <h3 className="text-md font-semibold mb-4">Profile</h3>
+            <ul className="space-y-3">
+              <li>
+                <button className="text-secondary hover:underline">
+                  {" "}
+                  <FontAwesomeIcon size={21} className=" pr-2" icon={faPlusCircle} /> Add a short biography
+                </button>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>💬</span>
+                <span>I am talkative when I feel comfortable</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>🎵</span>
+                <span>I like to listen to music when I feel like it</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>🚬</span>
+                <span>I don’t mind smoking</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>🐾</span>
+                <span>I prefer not to travel with animals</span>
+              </li>
+            </ul>
+            <button className="text-secondary hover:underline mt-4">Edit travel preferences</button>
+          </div>
+          <hr className="my-5 border-gray-200" />
+          {/* Vehicles Section */}
+          <div className="text-sm">
+            <h3 className="text-md font-bold mb-4">Vehicles</h3>
+            <ul className="space-y-3">
+              <li>
+                <span className="block font-bold">VOLKSWAGEN GOLF</span>
+                <span className="text-gray-500">Gray</span>
+              </li>
+              <li>
+                <button className="text-secondary hover:underline">
+                  {" "}
+                  <FontAwesomeIcon className="mr-3" icon={faPlusCircle} /> Add Vehicle
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      ) : (
+        // Account Tab
+        <div className="ml-28 min-h-[60vh]">
+          {/* Account Header */}
+          <div className="flex items-center gap-4">
+            <h2 className="text-xl font-semibold">Account Settings</h2>
+          </div>
+
+          {/* Edit Options */}
+          <div className="space-y-4 flex flex-col items-start mb-2 mt-4">
+            <button className="text-secondary text-sm hover:underline">Change email address</button>
+            <button className="text-secondary text-sm hover:underline">Change phone number</button>
+            <button className="text-secondary text-sm hover:underline">Change password</button>
+            <button className="text-secondary text-sm hover:underline">Delete account</button>
+          </div>
+          <hr className="border-gray-200 my-4" />
+
+          {/* Notifications Section */}
+          <div className="text-sm">
+            <h3 className="text-md font-semibold mb-4">Notifications</h3>
+            <ul className="space-y-3">
+              <li className="flex items-center gap-2">
+                <input type="checkbox" className="mr-2" />
+                <span>Email notifications</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <input type="checkbox" className="mr-2" />
+                <span>SMS notifications</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <input type="checkbox" className="mr-2" />
+                <span>Push notifications</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
+
+export default Profile;

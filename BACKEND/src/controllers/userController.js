@@ -27,7 +27,7 @@ const generateAccessAndRefereshTokens = async(userId) =>{
 
 const verifyUser = asyncHandler(async (req, res) => {
     const { token } = req.params; // Extract the token from the URL
-
+    console.log(token)
     try {
         // Decode and verify the token
         const decoded = jwt.verify(token, process.env.EMAIL_VERIFICATION_SECRET);
@@ -35,7 +35,7 @@ const verifyUser = asyncHandler(async (req, res) => {
 
         // Find the user by email
         const user = await User.findOne({ email });
-
+        console.log(user)
         if (!user) {
             throw new ApiError(404, "User not found");
         }
@@ -43,7 +43,7 @@ const verifyUser = asyncHandler(async (req, res) => {
         if (user.emailverified) {
             return res
                 .status(400)
-                .json(new ApiResponse(400, null, "Email is already verified"));
+                .json(new ApiResponse(202, null, "Email is already verified"));
         }
 
         // Mark the user as verified
@@ -53,7 +53,7 @@ const verifyUser = asyncHandler(async (req, res) => {
 
         return res
             .status(200)
-            .json(new ApiResponse(200, null, "Email verified successfully"));
+            .json(new ApiResponse(200, user, "Email verified successfully"));
     } catch (error) {
         console.error("Verification error:", error.message);
         throw new ApiError(400, "Invalid or expired verification link");
@@ -62,6 +62,7 @@ const verifyUser = asyncHandler(async (req, res) => {
 
 
 const registerUser = asyncHandler( async (req, res) => {
+    console.log(req.body)
     const emailRegex = 
 
 /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
@@ -105,25 +106,25 @@ function isEmailValid(email) {
     }
     //console.log(req.files);
 
-    const uploadUserprofilePictureLocalPath = req.files?.profilePicture[0]?.path;
-    //const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    // const uploadUserprofilePictureLocalPath = req.files?.profilePicture[0]?.path;
+    // //const coverImageLocalPath = req.files?.coverImage[0]?.path;
 
-    if (!uploadUserprofilePictureLocalPath ) {
-        throw new ApiError(400, "updateUserprofilePicture file is required")
-    }
+    // if (!uploadUserprofilePictureLocalPath ) {
+    //     throw new ApiError(400, "updateUserprofilePicture file is required")
+    // }
 
-    const uploadUserprofilePicture = await uploadOnCloudinary(uploadUserprofilePictureLocalPath)
+    // const uploadUserprofilePicture = await uploadOnCloudinary(uploadUserprofilePictureLocalPath)
 
     const verificationToken=jwt.sign({ email },process.env.EMAIL_VERIFICATION_SECRET,  { expiresIn: "1h" })
 
-    if (!updateUserprofilePicture) {
-        throw new ApiError(400, "updateUserprofilePicture file is required")
-    }
+    // if (!updateUserprofilePicture) {
+    //     throw new ApiError(400, "updateUserprofilePicture file is required")
+    // }
    
 
     await User.create({
         fullName,
-        profilePicture: uploadUserprofilePicture.url,
+        // profilePicture: uploadUserprofilePicture.url,
         email,
         emailverified:false,
         verified: false,
@@ -141,47 +142,51 @@ function isEmailValid(email) {
 
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-
+    console.log(req.body)
     if (!email || !password) {
         throw new ApiError(400, "Email and password are required");
     }
-
-    const user = await User.findOne({ email });
-
+     
+    const user = await User.findOne({ email }).select("+password");
+    
     if (!user) {
-        throw new ApiError(404, "User not found");
+        throw new ApiError(404, "Invalid credentials");
     }
-
+    
     if (!user.emailverified) {
         throw new ApiError(403, "Please verify your email before logging in");
     }
-
+    
     const isPasswordValid = await user.isPasswordCorrect(password);
-
+ 
     if (!isPasswordValid) {
+        console.log('hello')
         throw new ApiError(401, "Invalid credentials");
     }
 
     const accessToken = user.generateAccessToken();
     const refreshToken = user.generateRefreshToken();
 
-    const options = {
+    const optionsresfresh = {
         httpOnly: true,
-        secure: true,
+        expiresIn: "30d"
     };
-    
-
+    const optionsaccess = {
+        httpOnly: true,
+        expiresIn: "15m"
+    };
+    //remving password from user
+    user.password = undefined;
     return res
         .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
-        .json(
-            new ApiResponse(
-                200,
-                { user, accessToken, refreshToken },
-                "Login successful"
-            )
-        );
+        .cookie("accessToken", accessToken, optionsaccess)
+        .cookie("refreshToken", refreshToken, optionsresfresh)
+        .json({
+            success: true,
+            statusCode: 200,
+            data: { user, accessToken },
+            message: "Login successful",
+        });
 });
 
 const logoutUser = asyncHandler(async(req, res) => {
@@ -202,7 +207,7 @@ const logoutUser = asyncHandler(async(req, res) => {
         httpOnly: true,
         secure: true
     }
-
+    console.log("logout")
     return res
     .status(200)
     .clearCookie("accessToken", options)
@@ -234,21 +239,25 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             
         }
     
-        const options = {
+        const optionsresfresh = {
             httpOnly: true,
-            secure: true
-        }
+            expiresIn: "30d"
+        };
+        const optionsaccess = {
+            httpOnly: true,
+            expiresIn: "15m"
+        };
     
         const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id)
     
         return res
         .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", newRefreshToken, options)
+        .cookie("accessToken", accessToken,  optionsaccess)
+        .cookie("refreshToken", newRefreshToken, optionsresfresh)
         .json(
             new ApiResponse(
                 200, 
-                {accessToken, refreshToken: newRefreshToken},
+                {accessToken},
                 "Access token refreshed"
             )
         )

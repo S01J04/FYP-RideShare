@@ -15,6 +15,8 @@ import SettingsPage from "./Pages/Settings";
 import BookingPage from "./Pages/BookingPage";
 import RiderProfilePage from "./Pages/RiderDetailPage";
 import RatingsPage from "./Pages/RatingandReviews";
+import { EmailVerificationPage } from "./Pages/verificationPage";
+import RideHistory from "./Pages/userRides";
 
 
 function App() {
@@ -30,7 +32,9 @@ function App() {
         <Route path="/ride-detail/:id" element={<RideDetailPage />} />  
         <Route path="/create-ride" element={<PublishRidePage />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/users-setting" element={<SettingsPage />} />
+        <Route path="/users-profile" element={<SettingsPage />} />
+        <Route path="/user-ridehistory" element={< RideHistory/>} />
+
         <Route path="/ride-booking/:rideId" element={<BookingPage />} />
         <Route path="/rider-profile/:riderId" element={<RiderProfilePage />} />
         <Route path="/rider-rating/:riderId" element={<RatingsPage />} />
@@ -40,6 +44,8 @@ function App() {
         {/* Authentication Routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />}/>
+        <Route path="/email-verification/verify/:token" element={<EmailVerificationPage />} />
+
 
         {/* Protected Routes */}
         {/* <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
