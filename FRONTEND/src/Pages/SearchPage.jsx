@@ -15,6 +15,7 @@ export const SearchPage = () => {
   // }, []);
   return (
     <div className=' min-h-[80dvh] justify-center mb-14  flex flex-col gap-4 items-center  '>
+     <div className='h-16'></div>
       <div className="search mt-16 md:my-5 ">
         <h1 className='font-bold text-2xl md:text-5xl'>Where Do You Want To Go</h1>
       </div>

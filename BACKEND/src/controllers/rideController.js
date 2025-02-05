@@ -1,142 +1,121 @@
-import Ride from "../models/Ride.model.js";
-import Vehicle from "../models/Vehicle.model.js";
-import ApiError from "../utils/ApiError.js";
-import ApiResponse from "../utils/ApiResponse.js";
-import { asyncHandler } from "../utils/asyncHandler.js";
+import { validationResult } from 'express-validator';
+import { confirmRide, endRide,getFare, startRide} from '../utils/rideService.js';
+import { sendMessageToSocketId } from '../utils/socket.js';
 
-// Create a new ride
-export const createRide = asyncHandler(async (req, res) => {
-  console.log(req.body)
-  const {
-    rideType,
-    startLocation,
-    endLocation,
-    stops,
-    departureDate,
-    availableSeats,
-    cargoCapacityAvailable,
-    pricePerSeat,
-    pricePerCubicFoot,
-  } = req.body;
+// export const initiateRideCreation = async (req, res) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//         return res.status(400).json({ errors: errors.array() });
+//     }
 
-  // Validation
-  if (!startLocation || !endLocation || !departureDate || !rideType) {
-    throw new ApiError(400, "All required fields must be provided.");
-  }
+//     const { userId, pickup, destination, vehicleType } = req.body;
 
-  if (!['passenger', 'cargo', 'mixed'].includes(rideType)) {
-    throw new ApiError(400, "Invalid ride type.");
-  }
+//     try {
+//         const ride = await createRide({ user: req.user._id, pickup, destination, vehicleType });
+//         res.status(201).json(ride);
 
-  // Check if the driver has a vehicle
-  const getVehicle = await Vehicle.findOne({ driverId:req.user?._id });
-  if (!getVehicle) {
-    throw new ApiError(404, "Vehicle not found.plz add vehicle first");
-  }
+//         const pickupCoordinates = await getAddressCoordinate(pickup);
+        
+//         const captainsInRadius = await getCaptainsInTheRadius(pickupCoordinates.ltd, pickupCoordinates.lng, 2);
 
-  // Create a new ride
-  const newRide = new Ride({
-    driverId:req.user?._id,
-    vehicleId: getVehicle._id,
-    rideType,
-    startLocation,
-    endLocation,
-    stops,
-    departureDate,
-    availableSeats: rideType !== 'cargo' ? availableSeats : 0, // Only relevant for passenger rides
-    cargoCapacityAvailable: rideType !== 'passenger' ? cargoCapacityAvailable : 0, // Only relevant for cargo rides
-    pricePerSeat,
-    pricePerCubicFoot,
-  });
+//         ride.otp = "";
 
-  const savedRide = await newRide.save();
-  return res
-    .status(201)
-    .json(new ApiResponse(201, savedRide, "Ride created successfully."));
-});
+//         const rideWithUser = await rideModel.findOne({ _id: ride._id }).populate('user');
 
-// Get all rides (with optional filters)
-export const getAllRides = asyncHandler(async (req, res) => {
-  const { departureDate, startLocation, endLocation, rideType } = req.query;
+//         captainsInRadius.map(captain => {
+//             sendMessageToSocketId(captain.socketId, {
+//                 event: 'new-ride',
+//                 data: rideWithUser
+//             });
+//         });
 
-  const query = {};
-  if (departureDate) {
-    query.departureDate = { $gte: new Date(departureDate) };
-  }
-  if (startLocation) {
-    query["startLocation.address"] = { $regex: startLocation, $options: "i" };
-  }
-  if (endLocation) {
-    query["endLocation.address"] = { $regex: endLocation, $options: "i" };
-  }
-  if (rideType) {
-    query.rideType = rideType;
-  }
+//     } catch (err) {
+//         console.log(err);
+//         return res.status(500).json({ message: err.message });
+//     }
+// };
 
-  const { page = 1, limit = 10 } = req.query;
-  const rides = await Ride.find(query)
-    .skip((page - 1) * limit)
-    .limit(parseInt(limit))
-    .populate("driverId", "fullName email");
+export const calculateFare = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
-  const totalRides = await Ride.countDocuments(query);
-  return res.status(200).json(
-    new ApiResponse(200, { rides, totalRides }, "Rides fetched successfully.")
-  );
-});
+    const { pickup, destination } = req.query;
 
-// Get ride by ID
-export const getRideById = asyncHandler(async (req, res) => {
-  const { rideId } = req.params;
+    try {
+        const fare = await getFare(pickup, destination);
+        return res.status(200).json(fare);
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+};
 
-  const ride = await Ride.findById(rideId)
-    .populate("driverId", "fullName email")
-    .lean();
-  if (!ride) {
-    throw new ApiError(404, "Ride not found.");
-  }
+export const approveRideRequest = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
-  return res.status(200).json(new ApiResponse(200, ride, "Ride details fetched."));
-});
+    const { rideId } = req.body;
 
-// Update a ride
-export const updateRide = asyncHandler(async (req, res) => {
-  const { rideId } = req.params;
-  const updates = req.body;
+    try {
+        const ride = await confirmRide({ rideId, captain: req.captain });
 
-  const updatedRide = await Ride.findByIdAndUpdate(rideId, updates, { new: true });
-  if (!updatedRide) {
-    throw new ApiError(404, "Ride not found.");
-  }
+        sendMessageToSocketId(ride.user.socketId, {
+            event: 'ride-confirmed',
+            data: ride
+        });
 
-  return res
-    .status(200)
-    .json(new ApiResponse(200, updatedRide, "Ride updated successfully."));
-});
+        return res.status(200).json(ride);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: err.message });
+    }
+};
 
-// Delete a ride
-export const deleteRide = asyncHandler(async (req, res) => {
-  const { rideId } = req.params;
+export const commenceRide = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
-  const deletedRide = await Ride.findByIdAndDelete(rideId);
-  if (!deletedRide) {
-    throw new ApiError(404, "Ride not found.");
-  }
+    const { rideId, otp } = req.query;
 
-  return res
-    .status(200)
-    .json(new ApiResponse(200, null, "Ride deleted successfully."));
-});
+    try {
+        const ride = await startRide({ rideId, otp, captain: req.captain });
 
-// Get rides created by a driver
-export const getRidesByDriver = asyncHandler(async (req, res) => {
-  const { driverId } = req.params;
+        console.log(ride);
 
-  const rides = await Ride.find({ driverId })
-    .populate("driverId", "fullName email")
-    .lean();
+        sendMessageToSocketId(ride.user.socketId, {
+            event: 'ride-started',
+            data: ride
+        });
 
-  return res
-    .status(200)
-    .json(new ApiResponse(200, rides, "Rides by driver fetched successfully."));
-});
+        return res.status(200).json(ride);
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+};
+
+export const finalizeRide = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { rideId } = req.body;
+
+    try {
+        const ride = await endRide({ rideId, captain: req.captain });
+
+        sendMessageToSocketId(ride.user.socketId, {
+            event: 'ride-ended',
+            data: ride
+        });
+
+        return res.status(200).json(ride);
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    } 
+};

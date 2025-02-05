@@ -4,7 +4,7 @@ import React from 'react'
 
 const Section2 = () => {
   return (
-    <section className="mt-72 md:mt-12 flex items-center justify-center min-h-[40vh]  -blue-700 px-4">
+    <section className="mt-72 md:mt-16 lg:mt-18 flex items-center justify-center min-h-[40vh]  -blue-700 px-4">
       <div className="flex flex-col md:flex-row gap-10 md:gap-20 w-full max-w-6xl mx-auto">
         {/* Div 1 */}
         <div className="flex  flex-col items-center lg:items-start text-center md:text-left md:w-1/3 px-4 md:px-0  -black">

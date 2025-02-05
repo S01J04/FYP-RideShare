@@ -50,7 +50,7 @@ export const useSignup = () => {
   const signupUser = async (myformdata) => {
     setIsLoading(true);
     try {
-      const response = await axiosInstance.post("http://localhost:3000//api/users/register", myformdata);
+      const response = await axiosInstance.post("/users/register", myformdata);
       dispatch(setUser(response.data)); // Dispatch user data to Redux store
       localStorage.setItem("user"); // Store user data in localStorage
     } catch (err) {
