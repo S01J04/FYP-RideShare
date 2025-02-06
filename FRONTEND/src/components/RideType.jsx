@@ -5,8 +5,7 @@ import { Button } from './ui/button'
 
 const RideType = ({rideType, setRideType, nextStep}) => {
   return (
-    <div className="w-full max-w-3xl  absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-lg p-10">
-    <div className='h-20'></div>
+    <div className="w-full max-w-3xl   rounded-lg p-10">
     <h2 className="text-4xl font-bold text-center mb-8">
       What type of ride are you offering?
     </h2>

@@ -41,10 +41,9 @@ export default function RidesSearched() {
       {/* Top Search Bar */}
       <div className="h-20"></div>
       <div
-        className="text-base outline-none w-full 
-                rounded-3xl shadow-md flex flex-col md:flex-row items-center p-5 md:h-20 bg-primary"
+        className=""
       >
-        <div className="w-full hidden lg:block">
+        <div className="w-full  hidden lg:block">
           <Search_Rides />
         </div>
 

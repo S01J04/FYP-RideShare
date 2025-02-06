@@ -2,20 +2,20 @@ import { Button } from '@/components/ui/button'
 import React from 'react'
 const Section4 = () => {
   return (
-    <section className='sec3   -pink-600 mt-10 flex flex-col md:flex-row-reverse items-center justify-between gap-5  -pink-700 min-h-[50vh] px-4'>
+    <section className='sec3 text-subtext   -pink-600 mt-10 flex flex-col md:flex-row-reverse items-center justify-between gap-5  -pink-700 min-h-[50vh] px-4'>
       {/* Image Container */}
       <div className=' w-full md:w-1/2 flex justify-center'>
         <img
-          src="./src/assets/car2new.png"
+          src="./src/assets/heroimgs.svg"
           alt="Car"
-          className="max-w-full h-auto object-cover"
+          className="max-w-[70%] h-auto object-cover"
         />
       </div>
     
       {/* Content Container */}
       <div className=' w-full md:w-1/2 flex flex-col items-center text-center p-4 md:p-8'>
         {/* Header */}
-        <div className="header  -black font-bold text-xl md:text-4xl">
+        <div className="header text-heading  -black font-bold text-xl md:text-4xl">
           Help us keep you safe from scams
         </div>
     
@@ -26,7 +26,7 @@ const Section4 = () => {
     
         {/* Button */}
         <div className='flex justify-center mt-5 w-full'>
-          <Button variant="default">Click here</Button>
+          <Button className='rounded-3xl  ' variant="default">Click here</Button>
         </div>
       </div>
     </section>

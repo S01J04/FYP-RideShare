@@ -85,7 +85,7 @@ export default function RideCard({ ride }) {
 
       {/* Book Button */}
       <div className="mt-4 flex justify-end">
-        <Button onClick={handleBookClick} className="w-full md:w-auto">
+        <Button variant="" onClick={handleBookClick} className="w-full md:w-auto">
           Book Ride
         </Button>
       </div>

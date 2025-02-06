@@ -60,13 +60,14 @@ const Header = () => {
   const dynamicColor = isScrolled || theme === "dark" ? "white" : "black";
 
   return (
-    <header ref={navContainerRef} className=' fixed z-50 inset-x-0  flex flex-row width-full h-16 mx-5 md:mt-3  -black items-center justify-between px-2 md:px-10 '>
+    <div >
+      <header ref={navContainerRef} className=' fixed z-50 inset-x-0  flex flex-row width-full h-16 mx-5 md:mt-3  -black items-center justify-between px-2 md:px-10 '>
         <div className="flex items-center justify-center md:hidden">
         <DropdownMenuDemo color={dynamicColor} />
         </div>
         <div className="logo">
-            <div className="img font-bold sm:text-2xl md:text-3xl ">
-                <Link  to={"/"}><b>Ride <span className='text-secondary'>Share</span></b>
+            <div className="img font-bold text-heading  sm:text-2xl md:text-3xl ">
+                <Link  to={"/"}><b>Ride <span className=' text-subtext '>Share</span></b>
                 </Link>
             </div>
         </div>
@@ -132,6 +133,8 @@ const Header = () => {
             </nav>
         </div>
     </header>
+    <div className='h-14 bg-transparent   '></div>
+    </div>
   )
 }
 

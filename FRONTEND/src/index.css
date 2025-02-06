@@ -3,6 +3,8 @@
   box-sizing: border-box;
 }
 
+
+
 * {
   margin: 0;
   padding: 0;
@@ -93,6 +95,11 @@ h6 {
 ol, ul {
   list-style: none;
 }
+.shadows-into-light-regular {
+  font-family: "Shadows Into Light", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 /* // reset text input style */
 [type=date],
@@ -164,6 +171,8 @@ textarea {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 /* width */
 ::-webkit-scrollbar {
   width: 0px;
@@ -192,7 +201,7 @@ textarea {
     --card-foreground: 0 0% 0%;
     --popover: 168 87% 89%;
     --popover-foreground: 0 0% 0%;
-    --primary: 194, 72%, 72%;
+    --primary: 197, 100%, 48%;
     --primary-foreground: 189, 31%, 75%;
     --secondary: 177, 61%, 63%;
     --secondary-foreground: 0 0% 0%;
@@ -211,6 +220,8 @@ textarea {
     --chart-4: 5 60% 44%;
     --chart-5: 168 87% 89%;
     --radius: 0.5rem;
+    --subtext: 189, 13%, 50%;
+    --heading:189, 89%, 17%;
   }
 
   .dark {
@@ -238,6 +249,8 @@ textarea {
     --chart-3: 180 100% 28%;
     --chart-4: 5 60% 44%;
     --chart-5: 187 100% 19%;
+    --subtext: 189, 13%, 50%;
+    --heading:189, 34%, 56%;
   }
 
   * {

@@ -19,9 +19,8 @@ const PickDate = ({ selectedDate, setSelectedDate, nextStep }) => {
   }, [date, setSelectedDate]);
 
   return (
-    <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl p-4">
-      <div className="h-28"></div>
-      <h2 className="text-4xl font-bold text-center mb-6">When are you leaving?</h2>
+    <div className="   w-full max-w-2xl p-4">
+      <h2 className="text-4xl font-bold text-center mb-20">When are you leaving?</h2>
 
       {/* Two-Month Calendar Section */}
       <div className="flex justify-between gap-6">

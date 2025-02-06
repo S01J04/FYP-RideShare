@@ -2,7 +2,7 @@ import React from "react";
 
 export default function App() {
   return (
-    <footer className=" bg-primary-foreground dark:text-white lg:text-left">
+    <footer className=" bg-[#EDEDED] dark:bg-gray-900 dark:text-white lg:text-left">
       {/* Social Media Section */}
       <div className="flex flex-col md:flex-row items-center justify-between border-b border-neutral-200 dark:border-neutral-600 p-6">
         <div className="mb-4 md:mb-0">

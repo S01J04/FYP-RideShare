@@ -91,7 +91,11 @@ const ConfirmRide = ({
               </p>
             </div>
           </div>
-          <div className=' text-lg w-1 font-semibold text-nowrap border-gray-300 flex justify-end items-end'>Price :{pricePerSeat || "Calculating..."}<span className='text-xs  block'>p/s</span> {/* ⏳ Show route distance */}</div>
+          <div className='text-lg w-1 font-semibold text-nowrap border-gray-300 flex justify-end items-end'>
+  Price: {rideType === "cargo" ? `rs${priceCargoCapacity || "Calculating..."}` 
+        : rideType === "passenger" ? `rs${pricePerSeat || "Calculating..."}` 
+        : `rs${pricePerSeat || "Calculating..."} (per seat) & $${priceCargoCapacity || "Calculating..."} (cargo)`}
+</div>
         </div>
 
         {/* 🚀 Ride Details */}

@@ -14,18 +14,19 @@ import { faPlus, faTruckFast, faUser } from "@fortawesome/free-solid-svg-icons";
 export default function SelectNoOfPassengers() {
   return (
     <Select>
-      {/* Trigger with placeholder text in gray */}
-      <SelectTrigger className="pl-9">
-        <SelectValue
-          className="text-gray-400 px-2 pl-7 lg:pl-10" // Placeholder text styling
-          placeholder="No of Passengers"
+      {/* Trigger with an icon and placeholder text */}
+      <SelectTrigger className="relative pl-12 hover:dark:bg-gray-800 !border-none font-semibold text-subtext dark:text-gray-300 h-12 rounded-2xl  dark:bg-transparent focus:ring-2 focus:ring-primary">
+        <FontAwesomeIcon
+          icon={faUser}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 text-subtext dark:text-gray-300"
         />
+        <SelectValue placeholder="No of Passengers" />
       </SelectTrigger>
 
-      {/* Content with options for numbers from 1 to 5 */}
-      <SelectContent className={"bg-white "}>
+      {/* Content with passenger options */}
+      <SelectContent className="bg-white dark:bg-gray-900">
         <SelectGroup>
-          <SelectLabel >Passengers</SelectLabel>
+          <SelectLabel className="text-gray-700 dark:text-gray-300">Passengers</SelectLabel>
           {[...Array(5)].map((_, i) => (
             <SelectItem key={i + 1} value={`${i + 1}`}>
               {i + 1}
@@ -37,29 +38,24 @@ export default function SelectNoOfPassengers() {
   );
 }
 export const SelectType = () => {
-  return ( <Select>
-    {/* Trigger with placeholder text in gray */}
-    <SelectTrigger className="">
-      <SelectValue
-        className="" // Placeholder text styling
-        placeholder="Select type"
-      />
-    </SelectTrigger>
+  return (
+    <Select>
+      <SelectTrigger className="relative pl-12 font-semibold !border-none text-subtext hover:dark:bg-gray-800  dark:text-gray-300 h-12 rounded-2xl  dark:bg-transparent focus:ring-2 focus:ring-primary">
+        <FontAwesomeIcon
+          icon={faTruckFast}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 text-subtext dark:text-gray-300"
+        />
+        <SelectValue placeholder="Ride Type" />
+      </SelectTrigger>
 
-    {/* Content with options for numbers from 1 to 5 */}
-    <SelectContent className={" "}>
-      <SelectGroup>
-        <SelectLabel >Add type</SelectLabel>
-        <SelectItem key={"1"} value={"passanger"} >
-          <FontAwesomeIcon icon={faUser}/> Passangers
-        </SelectItem>
-        <SelectItem key={"2"} value={"cargo"}>
-        <FontAwesomeIcon icon={faTruckFast}/> Cargo
-        </SelectItem>
-        <SelectItem key={"3"} value={"mix"}>
-        <FontAwesomeIcon icon={faPlus}/> Mix
-        </SelectItem>
-      </SelectGroup>
-    </SelectContent>
-  </Select>)
-}
+      <SelectContent className="bg-white dark:bg-gray-900">
+        <SelectGroup>
+          <SelectLabel className="text-gray-700 dark:text-gray-300">Ride Type</SelectLabel>
+          <SelectItem value="mixed">Passanger</SelectItem>
+          <SelectItem value="private">Cargo</SelectItem>
+          <SelectItem value="shared">Mix</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  );
+};

@@ -27,7 +27,7 @@ export const useLogin = () => {
         console.log("Response data:", response);
         dispatch(setUser(response.data)); // Store user in Redux
         dispatch(setAccessToken(response.data.accessToken))
-        localStorage.setItem("user", JSON.stringify(response.data.accessToken)); // Save token
+        localStorage.setItem("user", JSON.stringify(response.data.user)); // Save token
         navigate("/");
       } catch (err) {
         console.error("Error response:", err.response?.data || err.message);

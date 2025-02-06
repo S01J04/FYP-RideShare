@@ -39,7 +39,7 @@ router.route("/login").post(loginLimiter,loginUser)
 
 //secured routes
 router.route("/logout").get(verifyJWT,  logoutUser)//Logout
-router.route("/refresh-token").post(refreshAccessToken)//Refreshtokkens
+router.route("/refresh-token").get(refreshAccessToken)//Refreshtokkens
 router.route("/change-password").post(verifyJWT, changeCurrentPassword)//change password
 router.route("/current-user").get(verifyJWT, getCurrentUser)//get current user
 router.route("/update-account").patch(verifyJWT, updateAccountDetails)//update current user

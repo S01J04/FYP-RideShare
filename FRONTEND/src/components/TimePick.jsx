@@ -17,8 +17,8 @@ const TimePick = ({ nextStep, setTime, time }) => {
   };
 
   return (
-    <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-4">
-      <div className="h-20"></div>
+    <div className="  w-full max-w-md p-4">
+
       <h2 className="text-4xl font-bold text-center mb-6">When are you leaving?</h2>
 
       {/* Time Picker Section */}

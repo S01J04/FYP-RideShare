@@ -8,12 +8,19 @@ export default {
 	theme: {
 		
 	  extend: {
+		fontFamily: {
+		//  sans:["Shadows Into Light", serif],
+		  myfont: ["Figtree", "sans"],	
+		}
+		,
 		borderRadius: {
 		  lg: "var(--radius)",
 		  md: "calc(var(--radius) - 2px)",
 		  sm: "calc(var(--radius) - 4px)",
 		},
 		colors: {
+		 heading: "hsl(var(--heading))",	
+		  subtext:"hsl(var(--subtext))",
 		  background: "hsl(var(--background))",
 		  foreground: "hsl(var(--foreground))",
 		  card: {

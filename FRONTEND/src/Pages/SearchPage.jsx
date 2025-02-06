@@ -14,14 +14,14 @@ export const SearchPage = () => {
   //     .catch((error) => console.error('Error fetching data:', error));
   // }, []);
   return (
-    <div className=' min-h-[80dvh] justify-center mb-14  flex flex-col gap-4 items-center  '>
-     <div className='h-16'></div>
+    <div className=' min-h-[80dvh] justify-start mt-10 mb-14  flex flex-col gap-4 items-center  '>
+
       <div className="search mt-16 md:my-5 ">
         <h1 className='font-bold text-2xl md:text-5xl'>Where Do You Want To Go</h1>
       </div>
       <div
-       className="text-base outline-none  w-[90%] md:w-[95%] xl:w-[75%]
-          rounded-3xl shadow-md flex flex-col md:flex-row items-center p-5 md:h-20 bg-primary"
+       className="text-base md:mb-12 outline-none  w-[90%] md:w-[95%] xl:w-[65%]
+          rounded-3xl shadow-md flex flex-col md:flex-row items-center "
      >
         <SearchForm />
       </div>

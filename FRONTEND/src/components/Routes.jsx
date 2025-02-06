@@ -87,7 +87,7 @@ export const Routes = ({ toLocation, fromLocation, nextStep, setSelectedRoute })
     );
 
     return (
-        <div className="min-h-screen w-full flex flex-col lg:flex-row items-stretch">
+        <div className="min-h-screen border w-full flex flex-col lg:flex-row items-stretch">
             {/* Left Panel - Route Selection */}
             <div className="flex-1 p-6">
                 <h2 className="text-3xl text-center font-semibold mb-6">Select Your Route</h2>

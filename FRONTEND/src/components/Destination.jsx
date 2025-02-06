@@ -1,22 +1,31 @@
 import { faArrowRight, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Button } from "./ui/button";
 import { useMaps } from "@/redux/hooks/mapHook";
+import { debounce } from "lodash";
 
 export const Destination = ({ toLocation, setToLocation, setToCoordinates, nextStep }) => {
     const [suggestions, setSuggestions] = useState([]);
     const { handleDestinationChange, getCoordinates, isLoading } = useMaps();
 
     // Fetch destination suggestions
+    //Debounce API calls for destination
+    const fetchSuggestions = useCallback(
+        debounce(async (input) => {
+            if (input.length > 3) {
+                const suggestions = await handleDestinationChange({ target: { value: input } });
+                setSuggestions(suggestions || []);
+            } else {
+                setSuggestions([]);
+            }
+        }, 500),
+        []
+    );
     const handleDestinationInput = async (e) => {
-        setToLocation(e.target.value);
-        if (e.target.value.length > 3) {
-            const fetchedSuggestions = await handleDestinationChange(e);
-            setSuggestions(fetchedSuggestions);
-        } else {
-            setSuggestions([]);
-        }
+        const inputValue = e.target.value;
+        setToLocation(inputValue);
+        fetchSuggestions(inputValue); // Debounced fetch
     };
 
     // When a user selects a destination

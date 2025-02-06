@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { faLocationDot, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCircle, faCircleHalfStroke, faLocationDot, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DatePicker } from "./DatePicker";
 import SelectnoofPassengers, { SelectType } from "./Select";
@@ -8,165 +8,168 @@ import { useNavigate } from "react-router";
 
 export const Search_Rides = () => {
   const [currentDate, setCurrentDate] = useState("");
-  const [rideType, setRideType] = useState("mixed"); // State for the ride type
+  const [rideType, setRideType] = useState("mixed");
   const navigate = useNavigate();
 
   useEffect(() => {
     const today = new Date();
-    const formattedDate = today.toISOString().split("T")[0]; // Format the date as yyyy-mm-dd
-    setCurrentDate(formattedDate); // Set the current date
+    const formattedDate = today.toISOString().split("T")[0];
+    setCurrentDate(formattedDate);
   }, []);
 
   const handleSearch = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
     navigate("/search-ride/:Muhammads");
   };
 
   return (
     <form
-      onSubmit={handleSearch} // Bind the handleSearch function to the form submission
-      className="flex flex-col outline-none lg:flex-row w-full items-center justify-around gap-4"
+      onSubmit={handleSearch}
+      className="flex flex-col  md:flex-row w-full items-center justify-around   bg-white dark:bg-gray-900 shadow-md rounded-2xl"
     >
       {/* Pickup Location */}
-      <div className="relative outline-none flex items-center w-full lg:w-[22%]">
+      <div className="relative flex items-center w-full md:w-[22%]">
         <FontAwesomeIcon
-          icon={faLocationDot}
-          className="absolute dark:text-black top-1/2 left-3 transform -translate-y-1/2"
+          icon={faCircle}
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-subtext dark:text-gray-300"
         />
         <input
           type="text"
-          placeholder="Pickup Location"
-          className="lg:text-base px-2 pl-7 lg:pl-10 dark:text-black hover:bg-slate-200 md:text-sm w-full h-10  border rounded-md"
+          placeholder="Leaving From"
+          className="w-full hover:bg-gray-300 placeholder:font-semibold placeholder:text-subtext hover:dark:bg-gray-800 h-12 pl-10 pr-4 rounded-2xl text-black dark:text-white  dark:bg-transparent placeholder-gray-600 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
         />
       </div>
 
-      {/* Drop Location */}
-      <div className="relative flex items-center w-full lg:w-[22%]">
-        <FontAwesomeIcon
-          icon={faLocationDot}
-          className="absolute dark:text-black top-1/2 left-3 transform -translate-y-1/2"
-        />
-        <input
-          type="text"
-          placeholder="Drop Location"
-          className="lg:text-base dark:text-black   hover:bg-slate-200 md:text-sm w-full h-10 px-2 pl-7 lg:pl-10 rounded-md"
-        />
-      </div>
-
-      {/* Date Picker */}
-      <div className="relative flex  items-center w-full lg:w-[18%]">
-        <DatePicker />
-      </div>
-
-      {/* Passenger Selector */}
-      <div className="relative flex items-center w-full  lg:w-[21%]">
-        <FontAwesomeIcon
-          icon={faUser}
-          className="absolute dark:text-black top-1/2 left-3 transform -translate-y-1/2"
-        />
-        <SelectnoofPassengers />
-      </div>
-
-      {/* Ride Type Selector */}
-      <div className="relative flex items-center w-full lg:w-[15%]">
-        <SelectType />
-      </div>
-
-      {/* Search Button */}
-      <button
-        type="submit" // Form submission will trigger onSubmit
-        className="md:text-center lg:w-[15%] border  h-10 text-white rounded-md hover:bg-secondary hover:dark:text-white hover:text-black md:rounded-full lg:rounded-md transition-all justify-center relative flex items-center w-full md:w-10"
-      >
-        <span className="">
-          <FontAwesomeIcon
-            icon={faSearch}
-            className="absolute top-1/2 left-3 transform -translate-y-1/2"
-          />
-        </span>
-        <span className="md:hidden lg:block">Search</span>
-      </button>
-    </form>
-  );
-};
-
-export const SearchForm = () => {
-  const [currentDate, setCurrentDate] = useState("");
-  const [rideType, setRideType] = useState("mixed"); // State for the ride type
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const today = new Date();
-    const formattedDate = today.toISOString().split("T")[0]; // Format the date as yyyy-mm-dd
-    setCurrentDate(formattedDate); // Set the current date
-  }, []);
-
-  const handleSearch = (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    navigate("/search-ride/:Muhammads");
-  };
-
-  return (
-    <form
-      onSubmit={handleSearch} // Bind the handleSearch function to the form submission
-      className="flex flex-col outline-none md:flex-row w-full items-center justify-around gap-4"
-    >
-      {/* Pickup Location */}
-      <div className="relative outline-none flex items-center w-full md:w-[22%]">
-        <FontAwesomeIcon
-          icon={faLocationDot}
-          className="absolute dark:text-black top-1/2 left-3 transform -translate-y-1/2"
-        />
-        <input
-          type="text"
-          placeholder="Pickup Location"
-          className="lg:text-base dark:text-black hover:bg-slate-200 md:text-sm w-full h-10 pl-10 border rounded-md"
-        />
-      </div>
+      <div className="border my-1 md:mt-0 w-[90%] md:w-0  rounded-full border-gray-200 dark:border-gray-600 md:h-6 mx-1"></div>
 
       {/* Drop Location */}
       <div className="relative flex items-center w-full md:w-[22%]">
         <FontAwesomeIcon
           icon={faLocationDot}
-          className="absolute dark:text-black top-1/2 left-3 transform -translate-y-1/2"
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-subtext dark:text-gray-300"
         />
         <input
           type="text"
-          placeholder="Drop Location"
-          className="lg:text-base dark:text-black hover:bg-slate-200 md:text-sm w-full h-10 pl-10 rounded-md"
+          placeholder="Going to"
+          className="w-full hover:bg-gray-200 hover:dark:bg-gray-800 h-12 pl-10 pr-4 rounded-2xl placeholder:font-semibold placeholder:text-subtext text-black dark:text-white  dark:bg-transparent placeholder-gray-600 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
         />
       </div>
+
+      <div className="border my-1 md:mt-0 w-[90%] md:w-0  rounded-full border-gray-200 dark:border-gray-600 md:h-6 mx-1"></div>
 
       {/* Date Picker */}
       <div className="relative flex items-center w-full md:w-[18%]">
         <DatePicker />
       </div>
 
+      <div className="border my-1 md:mt-0 w-[90%] md:w-0  rounded-full border-gray-200 dark:border-gray-600 md:h-6 mx-1"></div>
+
       {/* Passenger Selector */}
-      <div className="relative flex items-center w-full md:w-[18%]">
-        <FontAwesomeIcon
-          icon={faUser}
-          className="absolute dark:text-black top-1/2 left-3 transform -translate-y-1/2"
-        />
+      <div className="relative my-[4px] flex items-center w-full md:w-[18%]">
+    
         <SelectnoofPassengers />
       </div>
+
+      <div className="border my-1 md:mt-0 w-[90%] md:w-0  rounded-full border-gray-200 dark:border-gray-600 md:h-6 mx-1"></div>
 
       {/* Ride Type Selector */}
       <div className="relative flex items-center w-full md:w-[18%]">
         <SelectType />
       </div>
+      <div className="border my-1 md:mt-0 w-[90%] md:w-0  rounded-full border-gray-200 dark:border-gray-600  mx-1"></div>
 
       {/* Search Button */}
       <button
-        type="submit" // Form submission will trigger onSubmit
-        className="md:text-center lg:w-[15%] border  h-10 text-white rounded-md hover:bg-secondary hover:dark:text-white hover:text-black md:rounded-full lg:rounded-md transition-all justify-center relative flex items-center w-full md:w-10"
+        type="submit"
+        className="flex items-center  justify-center w-full md:w-12  lg:w-[12%] h-14 bg-primary text-white dark:bg-primary-dark dark:text-white rounded-r-2xl hover:bg-primary-hover transition-all"
       >
-        <span className="block md:block lg:block">
-          <FontAwesomeIcon
-            icon={faSearch}
-            className="absolute top-1/2 left-3 transform -translate-y-1/2"
-          />
-        </span>
-        <span className="md:hidden lg:block">Search</span>
+        <FontAwesomeIcon icon={faSearch} className=" md:mr-0 mr-2 lg:mr-1" />
+        <span className="md:hidden lg:inline">Search</span>
+      </button>
+    </form>
+  );
+};
+
+
+export const SearchForm = () => {
+  const [currentDate, setCurrentDate] = useState("");
+  const [rideType, setRideType] = useState("mixed");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = today.toISOString().split("T")[0];
+    setCurrentDate(formattedDate);
+  }, []);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    navigate("/search-ride/:Muhammads");
+  };
+
+  return (
+    <form
+      onSubmit={handleSearch}
+      className="flex flex-col  md:flex-row w-full items-center justify-around   bg-white dark:bg-gray-900 shadow-md rounded-2xl"
+    >
+      {/* Pickup Location */}
+      <div className="relative flex items-center w-full md:w-[22%]">
+        <FontAwesomeIcon
+          icon={faCircle}
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-subtext dark:text-gray-300"
+        />
+        <input
+          type="text"
+          placeholder="Leaving From"
+          className="w-full hover:bg-gray-300 placeholder:font-semibold placeholder:text-subtext hover:dark:bg-gray-800 h-12 pl-10 pr-4 rounded-2xl text-black dark:text-white  dark:bg-transparent placeholder-gray-600 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+      </div>
+
+      <div className="border my-1 md:mt-0 w-[90%] md:w-0  rounded-full border-gray-200 dark:border-gray-600 md:h-6 mx-1"></div>
+
+      {/* Drop Location */}
+      <div className="relative flex items-center w-full md:w-[22%]">
+        <FontAwesomeIcon
+          icon={faLocationDot}
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-subtext dark:text-gray-300"
+        />
+        <input
+          type="text"
+          placeholder="Going to"
+          className="w-full hover:bg-gray-200 hover:dark:bg-gray-800 h-12 pl-10 pr-4 rounded-2xl placeholder:font-semibold placeholder:text-subtext text-black dark:text-white  dark:bg-transparent placeholder-gray-600 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+      </div>
+
+      <div className="border my-1 md:mt-0 w-[90%] md:w-0  rounded-full border-gray-200 dark:border-gray-600 md:h-6 mx-1"></div>
+
+      {/* Date Picker */}
+      <div className="relative flex items-center w-full md:w-[18%]">
+        <DatePicker />
+      </div>
+
+      <div className="border my-1 md:mt-0 w-[90%] md:w-0  rounded-full border-gray-200 dark:border-gray-600 md:h-6 mx-1"></div>
+
+      {/* Passenger Selector */}
+      <div className="relative my-[4px] flex items-center w-full md:w-[18%]">
+    
+        <SelectnoofPassengers />
+      </div>
+
+      <div className="border my-1 md:mt-0 w-[90%] md:w-0  rounded-full border-gray-200 dark:border-gray-600 md:h-6 mx-1"></div>
+
+      {/* Ride Type Selector */}
+      <div className="relative flex items-center w-full md:w-[18%]">
+        <SelectType />
+      </div>
+      <div className="border my-1 md:mt-0 w-[90%] md:w-0  rounded-full border-gray-200 dark:border-gray-600  mx-1"></div>
+
+      {/* Search Button */}
+      <button
+        type="submit"
+        className="flex items-center  justify-center w-full md:w-12  lg:w-[16%] h-14 bg-primary text-white dark:bg-secondary dark:text-white rounded-r-2xl hover:bg-primary-hover transition-all"
+      >
+        <FontAwesomeIcon icon={faSearch} className=" md:mr-0 mr-2 lg:mr-1" />
+        <span className="md:hidden lg:inline">Search</span>
       </button>
     </form>
   );

@@ -142,130 +142,141 @@ function isEmailValid(email) {
 
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-    console.log(req.body)
+    console.log(req.body);
+
     if (!email || !password) {
         throw new ApiError(400, "Email and password are required");
     }
-     
+
     const user = await User.findOne({ email }).select("+password");
-    
+
     if (!user) {
         throw new ApiError(404, "Invalid credentials");
     }
-    
+
     if (!user.emailverified) {
         throw new ApiError(403, "Please verify your email before logging in");
     }
-    
+
     const isPasswordValid = await user.isPasswordCorrect(password);
- 
+
     if (!isPasswordValid) {
-        console.log('hello')
+        console.log("Invalid password attempt");
         throw new ApiError(401, "Invalid credentials");
     }
 
+    // Generate tokens
     const accessToken = user.generateAccessToken();
     const refreshToken = user.generateRefreshToken();
 
-    const optionsresfresh = {
+    // Define secure cookie options
+    const cookieOptions = {
         httpOnly: true,
-        expiresIn: "30d"
+        secure: true, // Only send over HTTPS
+        sameSite: "Strict", // Prevent CSRF attacks
     };
-    const optionsaccess = {
-        httpOnly: true,
-        expiresIn: "15m"
-    };
-    //remving password from user
+
+    // Set cookies with explicit expiration
+    res.cookie("accessToken", accessToken, {
+        ...cookieOptions,
+        maxAge: 30 * 60 * 1000, // 30 minute
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+        ...cookieOptions,
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    });
+
+    // Remove password from response
     user.password = undefined;
-    return res
-        .status(200)
-        .cookie("accessToken", accessToken, optionsaccess)
-        .cookie("refreshToken", refreshToken, optionsresfresh)
-        .json({
-            success: true,
-            statusCode: 200,
-            data: { user, accessToken },
-            message: "Login successful",
-        });
+
+    return res.status(200).json({
+        success: true,
+        statusCode: 200,
+        data: { user, accessToken },
+        message: "Login successful",
+    });
 });
 
-const logoutUser = asyncHandler(async(req, res) => {
-    await User.findByIdAndUpdate(
-        req.user._id,
-        {
-            $unset: {
-                refreshToken: 1, // this removes the field from document,
-                socketId: 1
-            }
-        },
-        {
-            new: true
+const logoutUser = asyncHandler(async (req, res) => {
+    try {
+        // Ensure user exists before trying to update
+        if (req.user) {
+            await User.findByIdAndUpdate(req.user._id, {
+                $unset: {
+                    refreshToken: 1,
+                    socketId: 1,
+                },
+            }, { new: true });
         }
-    )
 
-    const options = {
-        httpOnly: true,
-        secure: true
+        console.log("Logging out user...");
+
+        // Clear cookies properly
+        res.clearCookie("accessToken", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "Strict",
+        });
+
+        res.clearCookie("refreshToken", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "Strict",
+        });
+
+        return res.status(200).json(new ApiResponse(200, {}, "User logged out successfully"));
+    } catch (error) {
+        console.error("Logout error:", error);
+        return res.status(500).json(new ApiError(500, "Logout failed"));
     }
-    console.log("logout")
-    return res
-    .status(200)
-    .clearCookie("accessToken", options)
-    .clearCookie("refreshToken", options)
-    .json(new ApiResponse(200, {}, "User logged Out"))
-})
+});
+
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
-    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
-
-    if (!incomingRefreshToken) {
-        throw new ApiError(401, "unauthorized request")
+    const refreshToken = req.cookies?.refreshToken || req.header("Authorization")?.replace("Bearer ", "");
+    
+    if (!refreshToken) {
+        throw new ApiError(401, "No refresh token provided");
     }
 
     try {
-        const decodedToken = jwt.verify(
-            incomingRefreshToken,
-            process.env.REFRESH_TOKEN_SECRET
-        )
-    
-        const user = await User.findById(decodedToken?._id)
-    
+        // Verify the refresh token
+        const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+        
+        const user = await User.findById(decoded._id);
         if (!user) {
-            throw new ApiError(401, "Invalid refresh token")
+            throw new ApiError(401, "User not found");
         }
-    
-        if (incomingRefreshToken !== user?.refreshToken) {
-            throw new ApiError(401, "Refresh token is expired or used")
-            
-        }
-    
-        const optionsresfresh = {
-            httpOnly: true,
-            expiresIn: "30d"
-        };
-        const optionsaccess = {
-            httpOnly: true,
-            expiresIn: "15m"
-        };
-    
-        const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id)
-    
-        return res
-        .status(200)
-        .cookie("accessToken", accessToken,  optionsaccess)
-        .cookie("refreshToken", newRefreshToken, optionsresfresh)
-        .json(
-            new ApiResponse(
-                200, 
-                {accessToken},
-                "Access token refreshed"
-            )
-        )
-    } catch (error) {
-        throw new ApiError(401, error?.message || "Invalid refresh token")
-    }
 
-})
+        // Generate a new access token
+        const newAccessToken = user.generateAccessToken();
+
+        // Define secure cookie options
+        const cookieOptions = {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
+            sameSite: "Strict", // Prevent CSRF attacks
+        };
+
+        console.log("New Access Token Generated:", newAccessToken);
+
+        // Send new access token in response
+        return res
+            .cookie("accessToken", newAccessToken, {
+                ...cookieOptions,
+                maxAge: 30 * 60 * 1000, // 15 minutes
+            })
+            .status(200)
+            .json({ accessToken: newAccessToken });
+
+    } catch (error) {
+        console.error("Refresh token error:", error);
+        throw new ApiError(403, "Invalid or expired refresh token");
+    }
+});
+
+
 
 const changeCurrentPassword = asyncHandler(async(req, res) => {
     const {oldPassword, newPassword} = req.body

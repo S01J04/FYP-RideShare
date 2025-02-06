@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+import { store } from "./store"; // Import Redux store
+import { setAccessToken, logoutUser } from "./slices/userSlice.js";
 // Create an Axios instance
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/api', 
@@ -10,42 +11,34 @@ const axiosInstance = axios.create({
   timeout: 10000, // Timeout after 10 seconds
 });
 
-// Request Interceptor
-axiosInstance.interceptors.request.use(
-  (config) => {
-    // Example: Get token from cookies or Redux state
-    const token = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('token='))
-      ?.split('=')[1];
+// Response Interceptor - Refresh Token on 401
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+      const originalRequest = error.config;
+      
+      if (error.response?.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true;
 
-    // If token exists, add it to Authorization header
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    // Handle request errors
-    return Promise.reject(error);
+          try {
+              // Request new access token using refresh token
+              const { data } = await axios.get("http://localhost:3000/api/users/refresh-token", { withCredentials: true });
+
+              // Update Redux store with new token
+              store.dispatch(setAccessToken(data.accessToken));
+
+              // Retry the failed request with new token
+              originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+              return axiosInstance(originalRequest);
+          } catch (refreshError) {
+              console.error("Token refresh failed:", refreshError);
+              store.dispatch(logoutUser());
+          }
+      }
+
+      return Promise.reject(error);
   }
 );
-// axiosInstance.interceptors.response.use(
-//     (response) => response,
-//     async (error) => {
-//         if (error.response.status === 401) {
-//             // Attempt to refresh token
-//             const { data } = await axios.post('/users/refresh-token');
-//             const newAccessToken = data?.accessToken;
-
-//             // // Retry the failed request with new token
-//             // error.config.headers['Authorization'] = `Bearer ${newAccessToken}`;
-//             // return axiosInstance(error.config);
-//         }
-
-//         return Promise.reject(error);
-//     }
-// );
 
 
 // Response Interceptor
