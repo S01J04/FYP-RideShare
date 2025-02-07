@@ -15,7 +15,7 @@ export default function SelectNoOfPassengers() {
   return (
     <Select>
       {/* Trigger with an icon and placeholder text */}
-      <SelectTrigger className="relative pl-12 hover:dark:bg-gray-800 !border-none font-semibold text-subtext dark:text-gray-300 h-12 rounded-2xl  dark:bg-transparent focus:ring-2 focus:ring-primary">
+      <SelectTrigger className="relative pl-12 hover:dark:bg-gray-800 !border-none font-semibold text-subtext dark:text-gray-300 h-12 rounded-2xl  dark:bg-transparent ">
         <FontAwesomeIcon
           icon={faUser}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 text-subtext dark:text-gray-300"
@@ -40,7 +40,7 @@ export default function SelectNoOfPassengers() {
 export const SelectType = () => {
   return (
     <Select>
-      <SelectTrigger className="relative pl-12 font-semibold !border-none text-subtext hover:dark:bg-gray-800  dark:text-gray-300 h-12 rounded-2xl  dark:bg-transparent focus:ring-2 focus:ring-primary">
+      <SelectTrigger className="relative pl-12 font-semibold !border-none text-subtext hover:dark:bg-gray-800  dark:text-gray-300 h-12 rounded-2xl  dark:bg-transparent ">
         <FontAwesomeIcon
           icon={faTruckFast}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 text-subtext dark:text-gray-300"

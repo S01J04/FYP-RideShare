@@ -12,7 +12,7 @@ export function DatePicker() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className="w-full shadow-none  h-12 flex items-center justify-start pl-12 text-subtext dark:text-gray-300 bg-white dark:bg-transparent rounded-2xl hover:bg-gray-200 dark:hover:bg-gray-800 focus:ring-2 focus:ring-primary">
+        <Button className="w-full shadow-none  h-12 flex items-center justify-start pl-12 text-subtext dark:text-gray-300 bg-white dark:bg-transparent rounded-2xl hover:bg-gray-200 dark:hover:bg-gray-800 ">
           <CalendarIcon className="h-5 w-5 absolute left-4 text-subtext dark:text-gray-300" />
           {date ? format(date, "PPP") : <span>Pick a date</span>}
         </Button>

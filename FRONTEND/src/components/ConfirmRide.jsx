@@ -1,31 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
+import { useCreateRide } from '@/redux/hooks/rideHook';
+import { useSelector } from 'react-redux';
 
 
 const calculateArrivalTime = (departureTime, duration) => {
-    if (!departureTime || !duration) return "Calculating...";
-  
-    const [timePart, period] = departureTime.split(" "); // Separate time and AM/PM
-    const [hours, minutes] = timePart.split(":").map(Number); // Convert to numbers
-  
-    let totalMinutes = hours * 60 + minutes + parseInt(duration, 10); // Add travel time
-    let newPeriod = period;
-  
-    let newHours = Math.floor(totalMinutes / 60);
-    let newMinutes = totalMinutes % 60;
-  
-    // Convert to 12-hour format and switch AM/PM if needed
-    if (newHours >= 12) {
-      newPeriod = newPeriod === "AM" ? "PM" : "AM";
-      if (newHours > 12) newHours -= 12;
-    } else if (newHours === 0) {
-      newHours = 12;
-    }
-  
-    return `${String(newHours).padStart(2, "0")}:${String(newMinutes).padStart(2, "0")} ${newPeriod}`;
-  };
-  
-  
+  if (!departureTime || !duration) return "Calculating...";
+
+  const [timePart, period] = departureTime.split(" "); // Separate time and AM/PM
+  const [hours, minutes] = timePart.split(":").map(Number); // Convert to numbers
+
+  let totalMinutes = hours * 60 + minutes + parseInt(duration, 10); // Add travel time
+  let newPeriod = period;
+
+  let newHours = Math.floor(totalMinutes / 60);
+  let newMinutes = totalMinutes % 60;
+
+  // Convert to 12-hour format and switch AM/PM if needed
+  if (newHours >= 12) {
+    newPeriod = newPeriod === "AM" ? "PM" : "AM";
+    if (newHours > 12) newHours -= 12;
+  } else if (newHours === 0) {
+    newHours = 12;
+  }
+
+  return `${String(newHours).padStart(2, "0")}:${String(newMinutes).padStart(2, "0")} ${newPeriod}`;
+};
+
+
 const ConfirmRide = ({
   fromCoordinates,
   toCoordinates,
@@ -48,11 +50,92 @@ const ConfirmRide = ({
   distance,
   duration
 }) => {
-    
-      
-      // 🔥 Calculate arrival time dynamically
-      const estimatedArrivalTime = calculateArrivalTime( time, duration);
-    console.log("Selected Route:", selectedRoute,time)
+  const { createRide, isLoading, error } = useCreateRide()
+  const user= useSelector(state => state.user)
+  const [driverId,setdriverId]=useState(null)
+  useEffect(()=>{
+      setdriverId(user?.user?._id)
+  },[driverId])
+
+  const handlepublishRide = () => {
+    if(!driverId){
+      return alert("Please login to publish a ride.")
+    }
+    if (!fromCoordinates || !toCoordinates) {
+      return alert("Please select a pickup and drop location.");
+    }
+    if (!selectedDate || !time) {
+      return alert("Please select a valid date and time.");
+    }
+    if (!rideType) {
+      return alert("Please select a valid ride type.");
+    }
+    if (isLoading) {
+      return alert("Publishing...");
+    }
+  
+    // Base ride data
+    let rideData = {
+      driverId,
+      fromCoordinates,
+      toCoordinates,
+      polyline: selectedRoute?.overview_polyline, // Only storing the essential part
+      fromLocation,
+      toLocation,
+      time,
+      selectedDate,
+      rideType,
+      distance,
+      duration,
+    };
+  
+    // Helper function for validation
+    const validateField = (field, min, message) => {
+      if (!field || field < min) {
+        alert(message);
+        return false;
+      }
+      return true;
+    };
+  
+    // Validate and add additional ride details based on ride type
+    if (rideType === "passenger") {
+      if (!validateField(seats, 2, "Please select at least 2 passengers.") ||
+          !validateField(pricePerSeat, 1, "Please enter a valid price per seat.")) {
+        return;
+      }
+      rideData = { ...rideData, seats, pricePerSeat };
+    } 
+    else if (rideType === "cargo") {
+      if (!validateField(cargoCapacity, 1, "Please enter a valid cargo capacity.") ||
+          !validateField(priceCargoCapacity, 1, "Please enter a valid price per cargo capacity.")) {
+        return;
+      }
+      rideData = { ...rideData, cargoCapacity, priceCargoCapacity };
+    } 
+    else if (rideType === "mixed") {
+      if (!validateField(seats, 1, "Please enter a valid number of seats.") ||
+          !validateField(pricePerSeat, 1, "Please enter a valid price per seat.") ||
+          !validateField(cargoCapacity, 1, "Please enter a valid cargo capacity.") ||
+          !validateField(priceCargoCapacity, 1, "Please enter a valid price for cargo capacity.")) {
+        return;
+      }
+      rideData = { ...rideData, seats, pricePerSeat, cargoCapacity, priceCargoCapacity };
+    }
+  
+    // Publish ride
+    createRide(rideData)
+      .then((response) => {
+        console.log("Success:", response);
+      })
+      .catch((err) => {
+        console.error("Error publishing ride:", err);
+        alert("Failed to publish ride. Please try again.");
+      });
+  };
+  
+  // 🔥 Calculate arrival time dynamically
+  const estimatedArrivalTime = calculateArrivalTime(time, duration);
   return (
     <div className="flex mx-auto w-[90%] md:w-1/3 items-start justify-center min-h-screen">
       <div className="w-full">
@@ -70,9 +153,9 @@ const ConfirmRide = ({
           {/* Time and Duration */}
           <p className="text-md text-nowrap  pt-2  font-medium leading-relaxed">
             {time || "Not set"}  {/* ⏰ Show time dynamically */}
-            <span  className="block w-full text-nowrap  text-sm font-medium py-12 border-black   overflow-hidden text-gray-700 mt-1">
-            {estimatedArrivalTime || "Calculating..."} {/* ⏳ Show route duration */}
-            
+            <span className="block w-full text-nowrap  text-sm font-medium py-12 border-black   overflow-hidden text-gray-700 mt-1">
+              {estimatedArrivalTime || "Calculating..."} {/* ⏳ Show route duration */}
+
             </span>
           </p>
 
@@ -92,10 +175,10 @@ const ConfirmRide = ({
             </div>
           </div>
           <div className='text-lg w-1 font-semibold text-nowrap border-gray-300 flex justify-end items-end'>
-  Price: {rideType === "cargo" ? `rs${priceCargoCapacity || "Calculating..."}` 
-        : rideType === "passenger" ? `rs${pricePerSeat || "Calculating..."}` 
-        : `rs${pricePerSeat || "Calculating..."} (per seat) & $${priceCargoCapacity || "Calculating..."} (cargo)`}
-</div>
+            Price: {rideType === "cargo" ? `rs${priceCargoCapacity || "Calculating..."}`
+              : rideType === "passenger" ? `rs${pricePerSeat || "Calculating..."}`
+                : `rs${pricePerSeat || "Calculating..."} (per seat) & $${priceCargoCapacity || "Calculating..."} (cargo)`}
+          </div>
         </div>
 
         {/* 🚀 Ride Details */}
@@ -141,8 +224,8 @@ const ConfirmRide = ({
               Edit Cargo Capacity
             </div>
           )}
-          <Button className="w-full mt-4" onClick={() => alert("Ride Published!")}>
-            Publish Ride
+          <Button className="w-full mt-4" onClick={handlepublishRide} disabled={isLoading}>
+            {isLoading ? "Publishing..." : "Publish Ride"}
           </Button>
         </div>
 

@@ -9,8 +9,8 @@ const bookingSchema = new mongoose.Schema(
       lng: { type: Number, required: true },
       address: { type: String, required: true },
     },
-    seatsBooked: { type: Number },
-    cargoSpaceBooked: { type: Number },
+    seatsBooked: { type: Number, default: 0 }, // For passenger bookings
+    cargoSpaceBooked: { type: Number, default: 0 }, // For cargo bookings
     bookingType: {
       type: String,
       enum: ['passenger', 'cargo', 'mixed'],

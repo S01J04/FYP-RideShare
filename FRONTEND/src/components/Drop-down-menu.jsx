@@ -1,4 +1,7 @@
 import { Button } from "@/components/ui/button";
+import { IoChevronDownSharp } from "react-icons/io5";
+import { IoChevronUpSharp } from "react-icons/io5";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -37,12 +40,14 @@ export function DropdownMenuDemo({ color }) {
     color: color,
     transition: "color 0.3s ease-in-out",
   }), [color]);
+  const [Arrowdown, setArrowdown] = useState(true);
 
   return (
-    <DropdownMenu>
+    <DropdownMenu onOpenChange={() => setArrowdown(!Arrowdown)}>
       <DropdownMenuTrigger asChild>
         <Link to="#" className="flex items-center">
-          <FontAwesomeIcon style={iconStyle} icon={faUserCircle} size="2x" />
+          <FontAwesomeIcon  style={iconStyle} icon={faUserCircle} size="3x" />
+         {Arrowdown ? <IoChevronDownSharp size={'1.5rem'} className="text-subtext trnsition-all duration-300" />:<IoChevronUpSharp size={'1.5rem'} className="text-subtext trnsition-all duration-300"/>}
         </Link>
       </DropdownMenuTrigger>
 

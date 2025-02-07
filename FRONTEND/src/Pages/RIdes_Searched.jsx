@@ -2,7 +2,7 @@ import { useState } from "react";
 import RideCard from "@/components/ride/RideCard";
 import RideFilters from "@/components/filters/RideFilters";
 import mockRides from "@/constants/mockrides.js";
-import { Search_Rides } from "@/components/SearchForm";
+import {  SearchForm } from "@/components/SearchForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCar, faSearch, faTruck, faMotorcycle, faLink } from "@fortawesome/free-solid-svg-icons";
 
@@ -44,7 +44,7 @@ export default function RidesSearched() {
         className=""
       >
         <div className="w-full  hidden lg:block">
-          <Search_Rides />
+          <SearchForm />
         </div>
 
         {/* Mobile Search & Filter Triggers */}
@@ -90,10 +90,10 @@ export default function RidesSearched() {
       )}
 
       {isSearchOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white dark:bg-gray-800 p-4 rounded-lg w-11/12 max-w-md">
             <h3 className="text-xl font-bold mb-4">Search</h3>
-            <Search_Rides />
+            <SearchForm />
             <button
               onClick={() => setIsSearchOpen(false)}
               className="mt-4 w-full bg-primary text-white py-2 rounded-lg"

@@ -1,4 +1,5 @@
 import express from "express";
+import { PublishRide } from "../controllers/rideController.js";
 // import {
 //   createRide,
 //   getAllRides,
@@ -11,7 +12,7 @@ import express from "express";
 const router = express.Router();
 
 
-// router.post("/create", createRide);// Create a ride
+router.post("/create-ride", PublishRide);// Create a ride
 // router.get("/get-all", getAllRides);// Get all rides with optional filters
 // router.get("/get-by-id/:rideId", getRideById);// Get a ride by ID
 // router.put("/update/:rideId", updateRide);// Update a ride

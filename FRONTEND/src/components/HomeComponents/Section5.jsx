@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 export const Section5 = () => {
   return (
-    <section className=' flex bg-heading  text-white  items-center justify-center  -pink-600   min-h-[30vh] md:min-h-[30vh] mt-5 flex-col -black-600 px-4'>
+    <section className=' flex bg-heading dark:bg-primary   text-white  items-center justify-center  -pink-600   min-h-[30vh] md:min-h-[30vh] mt-5 flex-col -black-600 px-4'>
   <div className=' -blue-700 md:w-[80%]  lg:flex flex-col justify-center items-center -pink-600  mx-auto p-4 md:p-8'>
     {/* Header */}
     <div className=' text-start text-xl md:text-3xl font-bold -black p-2'>

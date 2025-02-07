@@ -1,7 +1,6 @@
 import { getDistanceTime } from './mapservices.js';
 
 import rideModel from '../models/Ride.model.js';
-const crypto = require('crypto');
 
 export const getFare = async (pickup, destination) => {
     if (!pickup || !destination) {

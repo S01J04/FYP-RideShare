@@ -23,7 +23,7 @@ export const Section1 = () => {
      {/* Search Form Section */}
      <div
        className="absolute text-base outline-none  top-[155%] md:top-[100%]  left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[95%] lg:w-[85%] xl:w-[95%] 2xl:w-[65%]
-          rounded-2xl p-[2px] shadow-md flex flex-col md:flex-row items-center justify-between  "
+          rounded-2xl  shadow-md flex flex-col md:flex-row items-center justify-between  "
      >
      <SearchForm/>        
 

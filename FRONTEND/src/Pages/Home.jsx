@@ -8,10 +8,11 @@ import { Section6 } from '@/components/HomeComponents/Section6'
 import '../index.css'
 import { Car, Package, Shield } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useSelector } from 'react-redux'
 
 export const Home = () => {
   // Set the default date to today's date in the format yyyy-mm-dd
-  
+
   return (
     <div className='min-h-screen   font-sans   hide-scrollbar' >
         <Section1/>

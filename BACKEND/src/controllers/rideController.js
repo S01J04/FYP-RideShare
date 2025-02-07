@@ -1,39 +1,15 @@
 import { validationResult } from 'express-validator';
 import { confirmRide, endRide,getFare, startRide} from '../utils/rideService.js';
 import { sendMessageToSocketId } from '../utils/socket.js';
+import ApiResponse from '../utils/ApiResponse.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
 
-// export const initiateRideCreation = async (req, res) => {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//         return res.status(400).json({ errors: errors.array() });
-//     }
-
-//     const { userId, pickup, destination, vehicleType } = req.body;
-
-//     try {
-//         const ride = await createRide({ user: req.user._id, pickup, destination, vehicleType });
-//         res.status(201).json(ride);
-
-//         const pickupCoordinates = await getAddressCoordinate(pickup);
-        
-//         const captainsInRadius = await getCaptainsInTheRadius(pickupCoordinates.ltd, pickupCoordinates.lng, 2);
-
-//         ride.otp = "";
-
-//         const rideWithUser = await rideModel.findOne({ _id: ride._id }).populate('user');
-
-//         captainsInRadius.map(captain => {
-//             sendMessageToSocketId(captain.socketId, {
-//                 event: 'new-ride',
-//                 data: rideWithUser
-//             });
-//         });
-
-//     } catch (err) {
-//         console.log(err);
-//         return res.status(500).json({ message: err.message });
-//     }
-// };
+export const PublishRide = asyncHandler( async (req, res) => {
+    console.log(req.body)
+    const data=req.body
+    return res.status(200).json(new ApiResponse(200, data, "Ride created successfully"));
+  
+})
 
 export const calculateFare = async (req, res) => {
     const errors = validationResult(req);

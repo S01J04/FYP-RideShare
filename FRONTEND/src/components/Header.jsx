@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import  {FontAwesomeIcon}  from '@fortawesome/react-fontawesome'
-import { faArrowDown, faCar,faPlusCircle,faUserCircle } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDown, faCar,faPlusCircle,faSearch,faUserCircle } from '@fortawesome/free-solid-svg-icons'
 import { DropdownMenu } from './ui/dropdown-menu'
 import { DropdownMenuDemo } from './Drop-down-menu'
 import { ModeToggle } from './ui/mode-toggle'
+import {TbCirclePlus} from 'react-icons/tb'
 import { Link } from 'react-router'
 import { useWindowScroll } from "react-use";
 import clsx from "clsx";
@@ -57,7 +58,7 @@ const Header = () => {
   }, []);
 
   // Determine color dynamically
-  const dynamicColor = isScrolled || theme === "dark" ? "white" : "black";
+  const dynamicColor = isScrolled || theme === "dark" ? "white" : "#00AFF5";
 
   return (
     <div >
@@ -81,9 +82,9 @@ const Header = () => {
 
       {/* Search Ride */}
       <li>
-        <Link to="/search-ride" className="md:flex gap-2 items-center">
+        <Link to="/search-ride" className="md:flex gap-1 items-center">
           <FontAwesomeIcon
-            icon={faCar}
+            icon={faSearch}
             size="lg"
             style={{
               color: dynamicColor,
@@ -97,21 +98,21 @@ const Header = () => {
               transition: "color 0.3s ease-in-out", // Smooth transition for text color
             }}
           >
-            Search Ride
+            Search
           </span>
         </Link>
       </li>
 
       {/* Publish Ride */}
       <li>
-        <Link to="/create-ride" className="md:flex gap-2 items-center">
-          <FontAwesomeIcon
-            icon={faPlusCircle}
-            size="lg"
+        <Link to="/create-ride" className="md:flex gap-1 items-center">
+          <TbCirclePlus
+            size={"1.6rem"}
             style={{
               color: dynamicColor,
-              transition: "color 0.3s ease-in-out", // Smooth transition for color
+              transition: "color 0.3s ease-in-out", // Add smooth transition for color
             }}
+        
           />
           <span
             className="hidden md:inline"
@@ -120,7 +121,7 @@ const Header = () => {
               transition: "color 0.3s ease-in-out", // Smooth transition for text color
             }}
           >
-            Publish Ride
+            Publish a Ride
           </span>
         </Link>
       </li>

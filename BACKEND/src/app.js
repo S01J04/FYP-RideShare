@@ -8,8 +8,8 @@ const app = express();
 
 // Middleware
 
-app.use(express.json()); // Limit JSON payload size
-app.use(express.urlencoded({ extended: true, limit: "16kb" })); // Limit URL-encoded payload size
+app.use(express.json({ limit: "50mb" })); // Limit JSON payload size
+app.use(express.urlencoded({ extended: true, limit: "50mb" })); // Limit URL-encoded payload size
 app.use(express.static("public")); // Serve static files from the "public" directory
 app.use(cookieParser()); // Parse cookies
 

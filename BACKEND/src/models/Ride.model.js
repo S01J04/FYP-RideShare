@@ -20,7 +20,6 @@ const rideSchema = new mongoose.Schema(
         isVerified: { type: Boolean, default: false }, // Verified through OTP
       },
     ],
-    cargoBookings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Booking' }],
     startLocation: {
       lat: { type: Number, required: true },
       lng: { type: Number, required: true },
@@ -33,16 +32,19 @@ const rideSchema = new mongoose.Schema(
     },
     stops: [
       {
-        lat: { type: Number },
-        lng: { type: Number },
-        address: { type: String },
+        lat: { type: Number, required: true },
+        lng: { type: Number, required: true },
+        address: { type: String, required: true },
+        isUserAdded: { type: Boolean, default: false }, // Passenger-added stop
       },
     ],
+    totalSeats: { type: Number,  required: function () { return this.rideType !== 'cargo'; }},
     departureDate: { type: Date, required: true },
-    availableSeats: { type: Number },
-    cargoCapacityAvailable: { type: Number },
-    pricePerSeat: { type: Number },
-    pricePerCubicFoot: { type: Number },
+    availableSeats: { type: Number, required: function () { return this.rideType !== 'cargo'; } },
+    cargoCapacity: { type: Number, required: function () { return this.rideType !== 'passenger'; } },
+    pricePerSeat: { type: Number, required: function () { return this.rideType !== 'cargo'; } },
+    pricePerCubicFoot: { type: Number, required: function () { return this.rideType !== 'passenger'; } },
+    polyline: { type: String }, // Encoded polyline for route tracking
     status: {
       type: String,
       enum: ['scheduled', 'ongoing', 'completed', 'canceled', 'delayed', 'rescheduled'],
@@ -52,8 +54,12 @@ const rideSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Indexes for better query performance
 rideSchema.index({ driverId: 1 });
 rideSchema.index({ departureDate: 1 });
+rideSchema.index({ status: 1 });
+rideSchema.index({ startLocation: "2dsphere" });
+rideSchema.index({ endLocation: "2dsphere" });
 
 const Ride = mongoose.model('Ride', rideSchema);
 export default Ride;
