@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCar, faArrowRight, faClock, faCalendar } from "@fortawesome/free-solid-svg-icons";
 
@@ -46,7 +46,9 @@ const RideHistory = () => {
       },
     ],
   };
-
+  useEffect(() => {
+     window.scrollTo(0, 0); // Scroll to top when component mounts
+   }, []);
   return (
     <div className="max-w-4xl min-h-[70vh] mx-auto p-6 rounded-lg">
       <div className="h-16"></div>

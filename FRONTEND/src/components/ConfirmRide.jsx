@@ -2,30 +2,42 @@ import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { useCreateRide } from '@/redux/hooks/rideHook';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 
 const calculateArrivalTime = (departureTime, duration) => {
   if (!departureTime || !duration) return "Calculating...";
 
-  const [timePart, period] = departureTime.split(" "); // Separate time and AM/PM
-  const [hours, minutes] = timePart.split(":").map(Number); // Convert to numbers
+  // Extract time and AM/PM
+  const [timePart, period] = departureTime.split(" ");
+  let [hours, minutes] = timePart.split(":").map(Number);
 
-  let totalMinutes = hours * 60 + minutes + parseInt(duration, 10); // Add travel time
-  let newPeriod = period;
+  // Convert departure time to total minutes
+  let totalMinutes = (hours % 12) * 60 + minutes; // %12 ensures 12 AM/PM is handled correctly
+  if (period === "PM") totalMinutes += 12 * 60; // Convert PM times to 24-hour format
 
-  let newHours = Math.floor(totalMinutes / 60);
+  // Extract hours & minutes from duration
+  const [durationHours, durationMinutes] = duration.match(/\d+/g).map(Number);
+  let durationTotalMinutes = (durationHours * 60) + durationMinutes;
+
+  // Add duration
+  totalMinutes += durationTotalMinutes;
+
+  // Convert back to 12-hour format
+  let newHours = Math.floor((totalMinutes / 60) % 24); // Get hours in 24-hour format
   let newMinutes = totalMinutes % 60;
 
-  // Convert to 12-hour format and switch AM/PM if needed
-  if (newHours >= 12) {
-    newPeriod = newPeriod === "AM" ? "PM" : "AM";
-    if (newHours > 12) newHours -= 12;
-  } else if (newHours === 0) {
-    newHours = 12;
-  }
+  // Determine AM/PM
+  let newPeriod = newHours >= 12 ? "PM" : "AM";
+  newHours = newHours % 12 || 12; // Convert 24-hour format to 12-hour format
 
   return `${String(newHours).padStart(2, "0")}:${String(newMinutes).padStart(2, "0")} ${newPeriod}`;
 };
+
+// Test Case
+// console.log(calculateArrivalTime("12:00 AM", "17 hours 41 minutes")); // Expected Output: "05:41 PM"
+
+
 
 
 const ConfirmRide = ({
@@ -52,14 +64,21 @@ const ConfirmRide = ({
 }) => {
   const { createRide, isLoading, error } = useCreateRide()
   const user= useSelector(state => state.user)
+  const vehicle = useSelector((state) => state.vehicle.vehicles);
   const [driverId,setdriverId]=useState(null)
+  const [vehicleId,setvehicleId]=useState(null)
+  const navigate=useNavigate()
   useEffect(()=>{
       setdriverId(user?.user?._id)
-  },[driverId])
-
+      setvehicleId(vehicle.find(selector => selector.isPreferred===true )._id)
+  },[driverId,vehicleId])
+//  console.log(vehicle)
   const handlepublishRide = () => {
     if(!driverId){
       return alert("Please login to publish a ride.")
+    }
+    if(!vehicleId){
+      return alert("Please add a vehicle from profile to publish a ride.")
     }
     if (!fromCoordinates || !toCoordinates) {
       return alert("Please select a pickup and drop location.");
@@ -77,18 +96,20 @@ const ConfirmRide = ({
     // Base ride data
     let rideData = {
       driverId,
+      vehicleId,
       fromCoordinates,
       toCoordinates,
       polyline: selectedRoute?.overview_polyline, // Only storing the essential part
       fromLocation,
       toLocation,
       time,
+      endtime:estimatedArrivalTime,
       selectedDate,
       rideType,
       distance,
       duration,
     };
-  
+   console.log(rideData)
     // Helper function for validation
     const validateField = (field, min, message) => {
       if (!field || field < min) {
@@ -100,7 +121,7 @@ const ConfirmRide = ({
   
     // Validate and add additional ride details based on ride type
     if (rideType === "passenger") {
-      if (!validateField(seats, 2, "Please select at least 2 passengers.") ||
+      if (!validateField(seats, 1, "Please select at least 1 passengers.") ||
           !validateField(pricePerSeat, 1, "Please enter a valid price per seat.")) {
         return;
       }
@@ -127,6 +148,8 @@ const ConfirmRide = ({
     createRide(rideData)
       .then((response) => {
         console.log("Success:", response);
+        alert("ride created successfully")
+        navigate('/')
       })
       .catch((err) => {
         console.error("Error publishing ride:", err);
@@ -182,10 +205,26 @@ const ConfirmRide = ({
         </div>
 
         {/* 🚀 Ride Details */}
-        <div className="mt-4">
+        <div className="mt-4  w-full">
           <p className="text-md font-semibold">
             Ride Type: <span className="text-gray-700">{rideType || "Not selected"}</span>
           </p>
+          {
+              vehicle &&
+              <ul className=" w-full space-y-3">
+              {/* Vehicle Details */}
+              {vehicle.filter((vic) => vic.isPreferred).map((vic,index)=>{
+               return  <li key={index} className="flex w-full     flex-wrap items-center justify-between gap-2">
+                <div className="flex w-full   justify-between  items-center ">
+                  <div className='flex items-center w-full '><span className='text-md font-semibold'>Vehicle:</span> 
+                  <span className="block   text-nowrap ml-1  mr-2">{vic?.model}</span>
+                  <span className="text-gray-500 block text-nowrap"><span style={{ color: vic?.color }}>{vic?.color}</span> • {vic?.vehicleType} • {vic?.year}  • <span className="font-bold text-heading ">{vic?.plateNumber}</span> </span>
+                  </div>
+                </div>
+              </li>
+              })}
+            </ul>
+            }
           <p className="text-md font-semibold">
             Total Journy Time: <span className="text-gray-700">{duration || "Not selected"}</span>
           </p>

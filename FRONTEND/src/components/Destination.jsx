@@ -69,7 +69,7 @@ export const Destination = ({ toLocation, setToLocation, setToCoordinates, nextS
                 {/* Submit Button */}
                 <Button
                     onClick={handleSubmit}
-                    className="h-12 bg-secondary text-white rounded-r-xl rounded-l-none px-8 hover:bg-blue-600 transition"
+                    className="h-12 bg-secondary text-white rounded-r-xl !rounded-l-none  px-8 hover:bg-blue-600 transition"
                     disabled={isLoading}
                 >
                     {isLoading ? "Loading..." : "Submit"}

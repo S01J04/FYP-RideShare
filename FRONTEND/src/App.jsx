@@ -17,14 +17,16 @@ import RiderProfilePage from "./Pages/RiderDetailPage";
 import RatingsPage from "./Pages/RatingandReviews";
 import { EmailVerificationPage } from "./Pages/verificationPage";
 import RideHistory from "./Pages/userRides";
+import UserSetting from "./components/userSettings/Dashboard";
+import ScrollToTop from "./components/ScrollToTop";
 
 
 function App() {
   return (
-  
+      
       <Routes>
         {/* Public Routes */}
-       
+        
         <Route path="/" element={<Layout/>}>
         <Route index element={<Home />} />
         <Route path="/search-ride" element={<SearchPage />} />
@@ -32,7 +34,7 @@ function App() {
         <Route path="/ride-detail/:id" element={<RideDetailPage />} />  
         <Route path="/create-ride" element={<PublishRidePage />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/users-profile" element={<SettingsPage />} />
+        <Route path="/users-profile" element={<UserSetting />} />
         <Route path="/user-ridehistory" element={< RideHistory/>} />
 
         <Route path="/ride-booking/:rideId" element={<BookingPage />} />

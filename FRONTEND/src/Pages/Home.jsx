@@ -9,11 +9,19 @@ import '../index.css'
 import { Car, Package, Shield } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useSelector } from 'react-redux'
+import ScrollToTop from '@/components/ScrollToTop'
+import { useCreateRide } from '@/redux/hooks/rideHook'
+
 
 export const Home = () => {
   // Set the default date to today's date in the format yyyy-mm-dd
-
+  
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top when component mounts
+    
+  }, []);
   return (
+    
     <div className='min-h-screen   font-sans   hide-scrollbar' >
         <Section1/>
         <Section2/>

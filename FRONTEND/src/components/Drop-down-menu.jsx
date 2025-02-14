@@ -46,7 +46,7 @@ export function DropdownMenuDemo({ color }) {
     <DropdownMenu onOpenChange={() => setArrowdown(!Arrowdown)}>
       <DropdownMenuTrigger asChild>
         <Link to="#" className="flex items-center">
-          <FontAwesomeIcon  style={iconStyle} icon={faUserCircle} size="3x" />
+          {user?<img className="w-12 h-12 rounded-full object-cover object-top" src={user.profilePicture} alt="" />:<FontAwesomeIcon  style={iconStyle} icon={faUserCircle} size="3x" />}
          {Arrowdown ? <IoChevronDownSharp size={'1.5rem'} className="text-subtext trnsition-all duration-300" />:<IoChevronUpSharp size={'1.5rem'} className="text-subtext trnsition-all duration-300"/>}
         </Link>
       </DropdownMenuTrigger>

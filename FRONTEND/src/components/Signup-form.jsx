@@ -174,13 +174,13 @@ export function SignupForm({ className, ...props }) {
           </form>
 
           <div className="relative hidden bg-neutral-100 md:block dark:bg-neutral-800">
-            <div className="text-center text-2xl font-semibold my-5">
+            <div className="text-center text-heading text-4xl font-semibold mt-10">
               Welcome to Ride Share
             </div>
             <img
-              src="./src/assets/mainimg.png"
+              src="./src/assets/heroimgs.svg"
               alt="Welcome"
-              className="aspect-[4/3] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+              className="w-full  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
             />
           </div>
         </CardContent>

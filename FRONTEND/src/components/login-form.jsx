@@ -142,9 +142,9 @@ export function LoginForm({ className, ...props }) {
               Welcome to Ride Share
             </div>
             <img
-              src="./src/assets/mainimg.png"
+              src="./src/assets/heroimgs.svg"
               alt="Welcome"
-              className="aspect-[4/3] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+              className="w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
             />
           </div>
         </CardContent>

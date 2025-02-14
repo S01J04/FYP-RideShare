@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import routes_data from '@/constants/routes_data'
 export const SearchPage = () => {
+   useEffect(() => {
+      window.scrollTo(0, 0); // Scroll to top when component mounts
+    }, []);
   // const [routes, setRoutes] = useState([]);
 
   // useEffect(() => {

@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { faArrowLeft, faArrowRight, faCab, faCircleInfo, faIcicles } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 
 export const RideDetailPage = () => {
+   useEffect(() => {
+      window.scrollTo(0, 0); // Scroll to top when component mounts
+    }, []);
   const navigate = useNavigate()
   return (
     <div className="min-h-screen lg:w-2/3 mx-auto p-6">

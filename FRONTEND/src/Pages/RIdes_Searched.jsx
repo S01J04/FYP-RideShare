@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RideCard from "@/components/ride/RideCard";
 import RideFilters from "@/components/filters/RideFilters";
 import mockRides from "@/constants/mockrides.js";
 import {  SearchForm } from "@/components/SearchForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCar, faSearch, faTruck, faMotorcycle, faLink } from "@fortawesome/free-solid-svg-icons";
+import { faCar, faSearch, faTruck, faMotorcycle, faLink, faUsersBetweenLines } from "@fortawesome/free-solid-svg-icons";
+import { FaMix } from "react-icons/fa";
 
 export default function RidesSearched() {
+   useEffect(() => {
+      window.scrollTo(0, 0); // Scroll to top when component mounts
+    }, []);
   const [rides, setRides] = useState(mockRides); // Filtered rides
   const [activeTab, setActiveTab] = useState("All"); // Current active filter
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -16,7 +20,7 @@ export default function RidesSearched() {
     { label: "All", icon: faLink },
     { label: "Carpool", icon: faCar },
     { label: "Cargo", icon: faTruck },
-    { label: "Bikes", icon: faMotorcycle },
+    { label: "Mix", icon: faUsersBetweenLines  },
   ];
 
   // Handle tab changes and filtering logic
@@ -43,8 +47,11 @@ export default function RidesSearched() {
       <div
         className=""
       >
-        <div className="w-full  hidden lg:block">
-          <SearchForm />
+        <div
+       className=" text-base outline-none  md:w-[95%] lg:w-[85%] xl:w-[95%] 2xl:w-[105%]
+          rounded-2xl  shadow-md flex flex-col md:flex-row items-center justify-between  "
+     >
+          <SearchForm className="w-[110%] mr-10" />
         </div>
 
         {/* Mobile Search & Filter Triggers */}

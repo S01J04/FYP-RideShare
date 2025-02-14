@@ -10,6 +10,13 @@ const userSchema = new mongoose.Schema(
     role: { type: String, enum: ["driver", "passenger", "admin"], default: "passenger" },
     phoneNumber: { type: String },
     profilePicture: { type: String },
+    dateofbirth: { type: Date },
+    bio: { type: String, maxLength: 500 }, // New - User bio
+    preferences: [{
+      category: String,
+      selectedOption: String,
+    },], // New - User preferences
+    phoneVerified: { type: Boolean, default: false }, // New - Phone verification
     emailverified: { type: Boolean, default: false }, // User verification status for google
     verified: { type: Boolean, default: false }, // User verification status for google
     verificationToken: { type: String }, // Email verification token
@@ -17,6 +24,7 @@ const userSchema = new mongoose.Schema(
     lastLogin: { type: Date },
     accountStatus: { type: String, enum: ["active", "suspended", "deactivated"], default: "active" },
     socketId: { type: String, default: null },
+    vehicles: [{ type: mongoose.Schema.Types.ObjectId, ref: "Vehicle" }], // New - Linked vehicles
   },
   { timestamps: true }
 );

@@ -9,7 +9,9 @@ import {
     updateUserprofilePicture, 
     updateAccountDetails,
     verifyUser,
-    deleteUser
+    deleteUser,
+    UpdateUserProfile,
+    CreateUserProfile
 } from "../controllers/userController.js";
 import {upload} from "../middlewares/multer.middleware.js"
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -43,6 +45,9 @@ router.route("/refresh-token").get(refreshAccessToken)//Refreshtokkens
 router.route("/change-password").post(verifyJWT, changeCurrentPassword)//change password
 router.route("/current-user").get(verifyJWT, getCurrentUser)//get current user
 router.route("/update-account").patch(verifyJWT, updateAccountDetails)//update current user
-router.route("/profilePicture").patch(verifyJWT, upload.single("profilePicture"), updateUserprofilePicture)// update user profile picture
+router.route("/profile-upload-picture").post(verifyJWT, upload.fields([{name: "profilePicture",maxCount: 1}]), updateUserprofilePicture)// update user profile picture
+router.route("/profile-update-picture").put(verifyJWT,upload.fields([{name: "profilePicture",maxCount: 1}]), updateUserprofilePicture)// update user profile picture
+router.route("/profile/set").post(verifyJWT, CreateUserProfile);// Handle creating  profile fields
+router.route("/profile/update").patch(verifyJWT, UpdateUserProfile);// Handle updating  profile fields
 
 export default router

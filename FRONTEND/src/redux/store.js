@@ -2,10 +2,12 @@ import { configureStore,combineReducers } from '@reduxjs/toolkit'
 import { persistReducer,persistStore } from 'redux-persist'
 import persistConfig from './persistConfig'
 import userReducer from './slices/userSlice'
+import vehicleReducer from './slices/vechileSlice'
 
 
 const rootReducer=combineReducers({
-  user:userReducer
+  user:userReducer,
+  vehicle: vehicleReducer,
 })
 
 const persistedReducer= persistReducer(persistConfig,rootReducer)

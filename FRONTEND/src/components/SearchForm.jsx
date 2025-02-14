@@ -171,8 +171,8 @@ export const SearchForm = () => {
             setFocusedInput("pickup")
           }}
           onBlur={() => setTimeout(() => setFocusedInput(null), 200)}
-          className="w-full transition-all  hover:bg-gray-200 placeholder:font-semibold placeholder:text-subtext hover:dark:bg-gray-800 h-12 pl-10 pr-4 rounded-2xl text-black dark:text-white dark:bg-transparent placeholder-gray-600 dark:placeholder-gray-400"
-        />
+          className="w-full transition-all hover:bg-gray-200 placeholder:font-semibold placeholder:text-subtext hover:dark:bg-gray-800 h-12 pl-10 pr-9 overflow-hidden text-ellipsis whitespace-nowrap rounded-2xl text-black dark:text-white dark:bg-transparent placeholder-gray-600 dark:placeholder-gray-400"
+          />
         {/* Dropdown for Pickup */}
         {focusedInput === "pickup" && (
           <div ref={dropdownRef} className="absolute top-full mt-2 w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">

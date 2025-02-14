@@ -6,6 +6,7 @@ import  ApiResponse  from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
 import sendVerificationEmail from "../utils/sendmail.js"
+import { request } from "express";
 
 
 const generateAccessAndRefereshTokens = async(userId) =>{
@@ -334,8 +335,9 @@ const updateAccountDetails = asyncHandler(async(req, res) => {
 });
 
 const updateUserprofilePicture = asyncHandler(async(req, res) => {
-    const profilePictureLocalPath = req.file?.path
-
+    const profilePictureLocalPath = req.files?.profilePicture[0]?.path
+    console.log(req)
+    console.log(profilePictureLocalPath,req.body)
     if (!profilePictureLocalPath ) {
         throw new ApiError(400, "updateUserprofilePicture file is missing")
     }
@@ -362,7 +364,7 @@ const updateUserprofilePicture = asyncHandler(async(req, res) => {
     return res
     .status(200)
     .json(
-        new ApiResponse(200, user, "profilePicture image updated successfully")
+        new ApiResponse(200, {user}, "profilePicture image updated successfully")
     )
 })
 
@@ -373,7 +375,91 @@ const deleteUser = asyncHandler(async(req, res) => {
     .json(new ApiResponse(200, user, "User deleted successfully"))
 })
 
+const CreateUserProfile = asyncHandler(async (req, res, next) => {
+    try {
+        console.log(req.body);
+        const userId = req.user._id;
+        let { feild, value } = req.body; // 'feild' is misspelled, change to 'field' if needed
 
+        // Fix typo in 'feild' -> should be 'field'
+        const field = feild; 
+
+        // Fetch user from DB
+        const user = await User.findById(userId);
+        if (!user) {
+            return next(new ApiError(404, "User not found"));
+        }
+
+        // Validate required fields
+        if (!field || !value) {
+            return next(new ApiError(400, "Fields required"));
+        }
+
+        // Convert Date of Birth correctly
+        if (field === "dateofbirth") {
+            value = new Date(value); // Convert '2025-02-04' to a Date object
+        }
+
+        // Check if field already exists
+        if (user[field]) {
+            return next(new ApiError(400, `Field ${field} already exists`));
+        }
+
+        // Update user profile
+        user[field] = value;
+        await user.save();
+
+        res.json(new ApiResponse(200, {user}, `${field} added successfully`));
+    } catch (error) {
+        next(new ApiError(500, error.message || "Internal Server Error"));
+    }
+});
+
+const UpdateUserProfile = asyncHandler(async (req, res) => {
+    console.log(req.body)
+    try {
+      const userId = req.user._id;
+      const { feild, value } = req.body;
+  // Fix typo in 'feild' -> should be 'field'
+  const field = feild; 
+      // Validations
+      if (!field || !value) {
+        throw new ApiError(400, "Fields required");
+      }
+  
+      // Fetch user from database
+      const user = await User.findById(userId);
+      if (!user) {
+        throw new ApiError(404, "User not found");
+      }
+  
+      // Prevent unnecessary updates
+      if (user[field] == value) {
+        throw new ApiError(400, `Field '${field}' already has this value`);
+      }
+  
+      // Handle name updates separately
+      if (field === "firstname" || field === "lastname") {
+        let nameParts = user.fullName ? user.fullName.split(" ") : ["", ""];
+  
+        if (field === "firstname") {
+          nameParts[0] = value; // Update first name
+        } else if (field === "lastname") {
+          nameParts[1] = value; // Update last name
+        }
+  
+        user.fullName = nameParts.join(" ").trim(); // Reconstruct full name
+      } else {
+        user[field] = value; // Update other fields normally
+      }
+  
+      await user.save();
+  
+      res.json(new ApiResponse(200, {user}, `${field} updated successfully`));
+    } catch (error) {
+      throw new ApiError(500, error.message || "Internal Server Error");
+    }
+  });
 
 export {
     registerUser,
@@ -384,6 +470,8 @@ export {
     getCurrentUser,
     updateAccountDetails,
     updateUserprofilePicture,
+    CreateUserProfile,
+    UpdateUserProfile,
     verifyUser,
     deleteUser
 }

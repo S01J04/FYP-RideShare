@@ -1,9 +1,12 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router";
 
 const RatingsPage = () => {
+   useEffect(() => {
+      window.scrollTo(0, 0); // Scroll to top when component mounts
+    }, []);
   return (
     <div className="min-h-screen  p-6">
       <div className="max-w-3xl mx-auto">

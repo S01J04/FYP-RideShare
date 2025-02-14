@@ -67,7 +67,7 @@ export const Source = ({ fromLocation, setFromLocation, setFromCoordinates, next
                 />
                 <Button 
                     onClick={handleSubmit} 
-                    className="h-12 bg-secondary text-white rounded-r-xl rounded-l-none px-8 hover:bg-blue-600 transition"
+                    className="h-12 bg-primary text-white rounded-r-xl  !rounded-l-none px-8 hover:bg-blue-600 transition"
                     disabled={isLoading}
                 >
                     {isLoading ? "Loading..." : "Submit"}
