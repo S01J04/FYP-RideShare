@@ -1,0 +1,7 @@
+{
+  "name": "rideshareapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
