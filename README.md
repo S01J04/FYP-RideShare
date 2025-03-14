@@ -2,7 +2,7 @@
 
 A modern, full-stack ride-sharing platform that enables users to share rides with different types (carpool, cargo, mixed). Connect, travel, and save together!
 
-![Ride-Sharing Platform](https://example.com/screenshot.png)
+![Ride-Sharing Platform](https://cdn.blablacar.com/kairos/assets/images/carpool_blablabus_large-e3d8eff32c13cdafc080.svg)
 
 ## 🌟 Features
 
@@ -54,7 +54,7 @@ A modern, full-stack ride-sharing platform that enables users to share rides wit
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/ride-sharing-platform.git
+   git clone https://github.com/S01J04/FYP-RideShare
    cd ride-sharing-platform
    ```
 
